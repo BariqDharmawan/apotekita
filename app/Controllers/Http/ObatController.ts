@@ -1,11 +1,10 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Obat from 'App/Models/Obat'
-import Route from '@ioc:Adonis/Core/Route'
 
 export default class ObatController {
 
     public async index({ view }: HttpContextContract) {
-        const semuaObat = await Obat.all()
+        const semuaObat = await Obat.query().where('tgl_exp', '<', new Date().toISOString().substring(0, 10))
         return view.render('obat.index', { semuaObat })
     }
 

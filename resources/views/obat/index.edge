@@ -41,7 +41,9 @@
                 <td>{{ obat.nm_obat }}</td>
                 <td>{{ obat.bentuk_obat }}</td>
                 <td>{{ obat.tgl_prod }}</td>
-                <td>{{ obat.tgl_exp }}</td>
+                <td>
+                    {{ new Intl.DateTimeFormat('en-GB', {dateStyle: 'long'}).format(obat.tgl_exp) }}
+                </td>
                 <td>{{ obat.harga }}</td>
             @else
                 <td colspan="6">no data</td>

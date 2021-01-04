@@ -1,4 +1,5 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+import moment from 'moment'
 
 export default class Obats extends BaseSchema {
     protected tableName = 'obat'
