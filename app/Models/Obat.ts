@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import Persediaan from './Persediaan'
 
 export default class Obat extends BaseModel {
     static get table() {
@@ -7,9 +8,6 @@ export default class Obat extends BaseModel {
     }
 
     @column({ isPrimary: true })
-    public id: number
-
-    @column()
     public kd_obat: String
 
     @column()
@@ -27,10 +25,13 @@ export default class Obat extends BaseModel {
     @column()
     public harga: number
 
-
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
 
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
+
+    @hasOne(() => Persediaan)
+    public persediaan: HasOne<typeof Persediaan>
+
 }

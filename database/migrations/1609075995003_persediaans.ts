@@ -8,6 +8,7 @@ export default class Persediaans extends BaseSchema {
             table.increments('id')
             table.string('kd_obat_persediaan', 20).notNullable()
             table.bigInteger('jumlah_persediaan').notNullable()
+            table.integer('obat_id').unsigned()
             table.timestamps()
         })
     }

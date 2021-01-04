@@ -5,7 +5,6 @@ export default class Obats extends BaseSchema {
 
     public async up() {
         this.schema.createTable(this.tableName, (table) => {
-            table.increments('id')
             table.string('kd_obat', 25).notNullable()
             table.string('nm_obat', 25).notNullable()
             table.enum('bentuk_obat', ['SALEP', 'SYRUP', 'KAPLET', 'TABLET']).notNullable()
