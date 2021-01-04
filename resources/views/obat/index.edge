@@ -8,20 +8,7 @@
 </head>
 <body>
 
-    <form action="{{ route('obat.store') }}" method="post" style="margin-bottom: 3rem">
-        {{ csrfField() }}
-        <input type="text" name="kd_obat" placeholder="kd_obat" required>
-        <input type="text" name="nm_obat" placeholder="nm_obat" required>
-        <select name="bentuk_obat" id="bentuk_obat" required>
-            <option value="SALEP">SALEP</option>
-            <option value="SYRUP">SYRUP</option>
-            <option value="KAPLET">KAPLET</option>
-            <option value="TABLET">TABLET</option>
-        </select>
-        <input type="text" name="bentuk_obat" placeholder="bentuk_obat" required>
-        <input type="number" name="harga" placeholder="harga" required>
-        <button type="submit">add obat</button>
-    </form>
+    @include('obat.form')
 
     <table>
         <thead>
@@ -32,24 +19,82 @@
                 <th>tgl produksi</th>
                 <th>tgl kadaluarsa</th>
                 <th>harga</th>
+                <th>edit detail</th>
             </tr>
         </thead>
         <tbody>
             @each(obat in semuaObat)
             <tr>
-                <td>{{ obat.kd_obat }}</td>
-                <td>{{ obat.nm_obat }}</td>
-                <td>{{ obat.bentuk_obat }}</td>
-                <td>{{ obat.tgl_prod }}</td>
-                <td>
+                <td class="kd_obat-val">{{ obat.kd_obat }}</td>
+                <td class="nm_obat-val">{{ obat.nm_obat }}</td>
+                <td class="bentuk_obat-val">{{ obat.bentuk_obat }}</td>
+                <td class="tgl_prod-val" 
+                data-original="{{ new Date(obat.tgl_prod).toISOString().slice(0, 10) }}">
+                    {{ new Intl.DateTimeFormat('en-GB', {dateStyle: 'long'}).format(obat.tgl_prod) }}
+                </td>
+                <td class="tgl_exp-val" 
+                data-original="{{ new Date(obat.tgl_exp).toISOString().slice(0, 10) }}">
                     {{ new Intl.DateTimeFormat('en-GB', {dateStyle: 'long'}).format(obat.tgl_exp) }}
                 </td>
-                <td>{{ obat.harga }}</td>
+                <td class="harga-val">{{ obat.harga }}</td>
+                <td>
+                    <a href="javascript:void(0);" class="edit-obat-btn">edit</a>
+                </td>
             @else
-                <td colspan="6">no data</td>
+                <td colspan="7">no data</td>
             </tr>
             @endeach
         </tbody>
     </table>
+
+    <script>
+        const editBtn = document.querySelectorAll('.edit-obat-btn')
+        const allInput = [
+            '[name="kd_obat"]',
+            '[name="nm_obat"]', 
+            '[name="bentuk_obat"]', 
+            '[name="harga"]', 
+            '[name="tgl_prod"]',
+            '[name="tgl_exp"]'
+        ]
+
+        function getVal(el, col) {
+            return el.querySelector(col).textContent.trim()
+        }
+
+        let submitObatBtnText;
+        editBtn.forEach(btn => {
+            let kdObat, nmObat, bentukObat, tglProd, tglExp, harga
+            let obatItem = btn.parentElement.parentElement
+
+            let allValue = []
+
+            submitObatBtnText = document.querySelector('button[type="submit"]').textContent
+
+            btn.addEventListener('click', function () {
+
+                kdObat = getVal(obatItem, '.kd_obat-val')
+                nmObat = getVal(obatItem, '.nm_obat-val')
+                bentukObat = getVal(obatItem, '.bentuk_obat-val')
+                tglProd = obatItem.querySelector('.tgl_prod-val').dataset.original
+                tglExp = obatItem.querySelector('.tgl_exp-val').dataset.original
+                harga = getVal(obatItem, '.harga-val')
+
+                allValue.push(kdObat,nmObat,bentukObat,tglProd,tglExp,harga)
+                
+                document.querySelectorAll(allInput).forEach((input, index) => {
+                    input.value = allValue[index]
+                })
+
+                document.querySelector('#form-obat button').textContent = 'edit detail obat'
+                console.log(allValue)
+
+            })
+        })
+
+        document.querySelector('#form-obat button[type="reset"]').addEventListener('click', function () {
+            this.previousElementSibling.textContent = submitObatBtnText
+        })
+    </script>
 </body>
 </html>
