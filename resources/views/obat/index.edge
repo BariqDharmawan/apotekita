@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="{{ route('obat.store') }}" method="post" style="margin-bottom: 3rem">
+        {{ csrfField() }}
+        <input type="text" name="kd_obat" placeholder="kd_obat" required>
+        <input type="text" name="nm_obat" placeholder="nm_obat" required>
+        <select name="bentuk_obat" id="bentuk_obat" required>
+            <option value="SALEP">SALEP</option>
+            <option value="SYRUP">SYRUP</option>
+            <option value="KAPLET">KAPLET</option>
+            <option value="TABLET">TABLET</option>
+        </select>
+        <input type="text" name="bentuk_obat" placeholder="bentuk_obat" required>
+        <input type="number" name="harga" placeholder="harga" required>
+        <button type="submit">add obat</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>kode</th>
+                <th>nama</th>
+                <th>bentuk</th>
+                <th>tgl produksi</th>
+                <th>tgl kadaluarsa</th>
+                <th>harga</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each(obat in semuaObat)
+            <tr>
+                <td>{{ obat.kd_obat }}</td>
+                <td>{{ obat.nm_obat }}</td>
+                <td>{{ obat.bentuk_obat }}</td>
+                <td>{{ obat.tgl_prod }}</td>
+                <td>{{ obat.tgl_exp }}</td>
+                <td>{{ obat.harga }}</td>
+            @else
+                <td colspan="6">no data</td>
+            </tr>
+            @endeach
+        </tbody>
+    </table>
+</body>
+</html>

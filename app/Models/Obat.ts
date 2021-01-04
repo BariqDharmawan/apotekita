@@ -3,11 +3,12 @@ import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import Persediaan from './Persediaan'
 
 export default class Obat extends BaseModel {
-    static get table() {
-        return 'obat'
-    }
 
-    @column({ isPrimary: true })
+    public static table = 'obat'
+
+    public static primaryKey = 'kd_obat'
+
+    @column()
     public kd_obat: String
 
     @column()
