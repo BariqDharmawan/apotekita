@@ -3,6 +3,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 export default class ObatController {
 
     public async index({ }: HttpContextContract) {
+        console.log('test')
     }
 
     public async create({ }: HttpContextContract) {
