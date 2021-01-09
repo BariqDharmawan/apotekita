@@ -63,7 +63,11 @@ export default class ObatController {
     public async edit({ }: HttpContextContract) {
     }
 
-    public async destroy({ }: HttpContextContract) {
+    public async destroy({ response, params }: HttpContextContract) {
+        const hapusObat = await Obat.findByOrFail('kd_obat', params.id)
+        await hapusObat.delete()
+
+        response.json(`berhasil hapus obat dengan kode ${params.id}`)
     }
 
 }
