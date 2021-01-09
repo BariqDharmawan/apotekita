@@ -1,22 +1,32 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Obat from './Obat'
 
 export default class Penjualan extends BaseModel {
+    public static table = 'penjualan'
+    public static primaryKey = 'kode'
+
     @column({ isPrimary: true })
-    public id: number
+    public kode: String
 
     @column()
-    public kd_obat_penjualan: String
+    public tgl_transaksi: Date
 
     @column()
-    public tgl_trans_penjualan: Date
+    public jumlah_beli: number
 
     @column()
-    public jumlah_penjualan: number
+    public kd_obat: String
 
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
 
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
+
+    @belongsTo(() => Obat, {
+        localKey: 'kode',
+        foreignKey: 'kd_obat'
+    })
+    public obat: BelongsTo<typeof Obat>
 }

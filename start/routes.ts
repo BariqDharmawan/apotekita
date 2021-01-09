@@ -1,4 +1,12 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'HomeController.index').as('homepage')
-Route.resource('obat', 'ObatController').except(['update', 'show'])
+
+const routes = {
+    'obat': 'ObatController',
+    'penjualan': 'PenjualanController',
+}
+
+for (const url in routes) {
+    Route.resource(url, routes[url]).except(['update', 'show'])
+}
