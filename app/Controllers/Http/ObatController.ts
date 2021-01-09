@@ -5,7 +5,7 @@ import Persediaan from 'App/Models/Persediaan'
 
 export default class ObatController {
 
-    public async index({ response }) {
+    public async index({ view, response }) {
         const semuaObat = await Obat.query().preload('persediaan')
         response.json(semuaObat)
 
@@ -57,10 +57,13 @@ export default class ObatController {
         response.redirect().toRoute('obat.index')
     }
 
-    public async show({ }: HttpContextContract) {
-    }
+    public async edit({ view, params, response }: HttpContextContract) {
+        const obat = await Obat.query()
+            .preload('persediaan')
+            .where('kd_obat', params.id).firstOrFail()
 
-    public async edit({ }: HttpContextContract) {
+        // response.json(obat)
+        return view.render('obat/edit', { obat: obat })
     }
 
     public async destroy({ response, params }: HttpContextContract) {
