@@ -37,6 +37,7 @@
                     {{ new Intl.DateTimeFormat('en-GB', {dateStyle: 'long'}).format(obat.tgl_exp) }}
                 </td>
                 <td class="harga-val">{{ obat.harga }}</td>
+                <td class="jumlah_persediaan-val">{{ obat.jumlah_persediaan }}</td>
                 <td>
                     <a href="javascript:void(0);" class="edit-obat-btn">edit</a>
                 </td>
@@ -53,9 +54,10 @@
             '[name="kd_obat"]',
             '[name="nm_obat"]', 
             '[name="bentuk_obat"]', 
-            '[name="harga"]', 
             '[name="tgl_prod"]',
-            '[name="tgl_exp"]'
+            '[name="tgl_exp"]',
+            '[name="harga"]',
+            '[name="jumlah_persediaan"]',
         ]
 
         function getVal(el, col) {
@@ -64,7 +66,7 @@
 
         let submitObatBtnText;
         editBtn.forEach(btn => {
-            let kdObat, nmObat, bentukObat, tglProd, tglExp, harga
+            let kdObat, nmObat, bentukObat, tglProd, tglExp, harga, jmlhPersediaan
             let obatItem = btn.parentElement.parentElement
 
             let allValue = []
@@ -79,6 +81,8 @@
                 tglProd = obatItem.querySelector('.tgl_prod-val').dataset.original
                 tglExp = obatItem.querySelector('.tgl_exp-val').dataset.original
                 harga = getVal(obatItem, '.harga-val')
+                jmlhPersediaan = 
+
 
                 allValue.push(kdObat,nmObat,bentukObat,tglProd,tglExp,harga)
                 
@@ -92,7 +96,9 @@
             })
         })
 
-        document.querySelector('#form-obat button[type="reset"]').addEventListener('click', function () {
+        const btnReset = document.querySelector('#form-obat button[type="reset"]')
+
+        btnReset.addEventListener('click', function () {
             this.previousElementSibling.textContent = submitObatBtnText
         })
     </script>
