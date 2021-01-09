@@ -8,7 +8,7 @@ export default class Obat extends BaseModel {
 
     public static primaryKey = 'kd_obat'
 
-    @column()
+    @column({ isPrimary: true })
     public kd_obat: String
 
     @column()
@@ -32,7 +32,10 @@ export default class Obat extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @hasOne(() => Persediaan)
+    @hasOne(() => Persediaan, {
+        localKey: 'kd_obat',
+        foreignKey: 'kd_obat'
+    })
     public persediaan: HasOne<typeof Persediaan>
 
 }
