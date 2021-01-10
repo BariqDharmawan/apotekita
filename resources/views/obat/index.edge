@@ -1,106 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-
-    @include('obat.form')
-
-    <table>
-        <thead>
-            <tr>
-                <th>kode</th>
-                <th>nama</th>
-                <th>bentuk</th>
-                <th>tgl produksi</th>
-                <th>tgl kadaluarsa</th>
-                <th>harga</th>
-                <th>edit detail</th>
-            </tr>
-        </thead>
-        <tbody>
-            @each(obat in semuaObat)
-            <tr>
-                <td class="kd_obat-val">{{ obat.kd_obat }}</td>
-                <td class="nm_obat-val">{{ obat.nm_obat }}</td>
-                <td class="bentuk_obat-val">{{ obat.bentuk_obat }}</td>
-                <td class="tgl_prod-val" 
-                data-original="{{ new Date(obat.tgl_prod).toISOString().slice(0, 10) }}">
-                    {{ new Intl.DateTimeFormat('en-GB', {dateStyle: 'long'}).format(obat.tgl_prod) }}
-                </td>
-                <td class="tgl_exp-val" 
-                data-original="{{ new Date(obat.tgl_exp).toISOString().slice(0, 10) }}">
-                    {{ new Intl.DateTimeFormat('en-GB', {dateStyle: 'long'}).format(obat.tgl_exp) }}
-                </td>
-                <td class="harga-val">{{ obat.harga }}</td>
-                <td class="jumlah_persediaan-val">{{ obat.jumlah_persediaan }}</td>
-                <td>
-                    <a href="javascript:void(0);" class="edit-obat-btn">edit</a>
-                </td>
-            @else
-                <td colspan="7">no data</td>
-            </tr>
-            @endeach
-        </tbody>
-    </table>
-
-    <script>
-        const editBtn = document.querySelectorAll('.edit-obat-btn')
-        const allInput = [
-            '[name="kd_obat"]',
-            '[name="nm_obat"]', 
-            '[name="bentuk_obat"]', 
-            '[name="tgl_prod"]',
-            '[name="tgl_exp"]',
-            '[name="harga"]',
-            '[name="jumlah_persediaan"]',
-        ]
-
-        function getVal(el, col) {
-            return el.querySelector(col).textContent.trim()
-        }
-
-        let submitObatBtnText;
-        editBtn.forEach(btn => {
-            let kdObat, nmObat, bentukObat, tglProd, tglExp, harga, jmlhPersediaan
-            let obatItem = btn.parentElement.parentElement
-
-            let allValue = []
-
-            submitObatBtnText = document.querySelector('button[type="submit"]').textContent
-
-            btn.addEventListener('click', function () {
-
-                kdObat = getVal(obatItem, '.kd_obat-val')
-                nmObat = getVal(obatItem, '.nm_obat-val')
-                bentukObat = getVal(obatItem, '.bentuk_obat-val')
-                tglProd = obatItem.querySelector('.tgl_prod-val').dataset.original
-                tglExp = obatItem.querySelector('.tgl_exp-val').dataset.original
-                harga = getVal(obatItem, '.harga-val')
-                jmlhPersediaan = 
-
-
-                allValue.push(kdObat,nmObat,bentukObat,tglProd,tglExp,harga)
-                
-                document.querySelectorAll(allInput).forEach((input, index) => {
-                    input.value = allValue[index]
-                })
-
-                document.querySelector('#form-obat button').textContent = 'edit detail obat'
-                console.log(allValue)
-
-            })
-        })
-
-        const btnReset = document.querySelector('#form-obat button[type="reset"]')
-
-        btnReset.addEventListener('click', function () {
-            this.previousElementSibling.textContent = submitObatBtnText
-        })
-    </script>
-</body>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+        <link href="/obat/css/main.css" rel="stylesheet" />
+        <title>Manage Obat</title>
+    </head>
+    <body>
+        <div class="v113_0">
+            <div class="v113_59">
+                <div class="v113_60"></div>
+                <div class="v113_61"></div>
+                <div class="v113_62"></div>
+                <div class="v113_63">
+                    <span class="v113_64"> 600.000</span>
+                    <span class="v113_65">600.000</span>
+                    <span class="v113_66">600.000</span>
+                    <span class="v113_67">harga</span>
+                </div>
+                <div class="v113_68">
+                    <span class="v113_69">12-12-2020</span>
+                    <span class="v113_70"> 12-12-2020</span>
+                    <span class="v113_71"> 12-12-2020</span>
+                    <span class="v113_72"> tgl kadaluarsa</span>
+                </div>
+                <div class="v113_73">
+                    <span class="v113_74"> 12-12-2020</span>
+                    <span class="v113_75"> 12-12-2020</span>
+                    <span class="v113_76">12-12-2020</span>
+                    <span class="v113_77"> tgl Produksi</span>
+                </div>
+                <div class="v113_78">
+                    <span class="v113_79"> salep</span>
+                    <span class="v113_80"> salep</span>
+                    <span class="v113_81">salep</span>
+                    <span class="v113_82">bentuk obat</span>
+                </div>
+                <div class="v113_83">
+                    <span class="v113_84">obat 1</span>
+                    <span class="v113_85">obat 1</span>
+                    <span class="v113_86">obat 1</span>
+                    <span class="v113_87">nama obat</span>
+                </div>
+                <div class="v113_88">
+                    <span class="v113_89">xxxxx</span>
+                    <span class="v113_90">xxxxx</span>
+                    <span class="v113_91">xxxxx</span>
+                    <span class="v113_92">kode</span>
+                </div>
+                <div class="v113_93">
+                    <div class="v113_94"></div>
+                    <span class="v113_95">Tambah obat</span>
+                </div>
+                <div class="v113_96">
+                    <div class="v113_97"></div>
+                    <span class="v113_98">obat kadaluarsa</span>
+                </div>
+                <div class="v113_99"></div>
+                <div class="v113_100">
+                    <div class="v113_101"></div>
+                    <div class="v113_102"></div>
+                </div>
+                <div class="v113_103"></div>
+                <div class="v113_104"></div>
+            </div>
+        </div>
+    </body>
 </html>
