@@ -4,9 +4,9 @@ import Obat from './Obat'
 
 export default class Penjualan extends BaseModel {
     public static table = 'penjualan'
-    public static primaryKey = 'kode'
+    // public static primaryKey = 'kode'
 
-    @column({ isPrimary: true })
+    @column()
     public kode: String
 
     @column()

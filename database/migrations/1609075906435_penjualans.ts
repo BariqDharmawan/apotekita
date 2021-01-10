@@ -5,8 +5,9 @@ export default class Penjualans extends BaseSchema {
 
     public async up() {
         this.schema.createTable(this.tableName, (table) => {
-            table.string('kode').nullable().primary()
-            table.string('kd_obat').notNullable().unsigned()
+            table.increments('id').primary()
+            table.string('kode').notNullable()
+            table.string('kd_obat').notNullable()
             table.date('tgl_transaksi').notNullable()
             table.bigInteger('jumlah_beli').notNullable()
             table.timestamps()

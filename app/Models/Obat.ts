@@ -41,7 +41,7 @@ export default class Obat extends BaseModel {
 
     @hasMany(() => Penjualan, {
         localKey: 'kd_obat',
-        foreignKey: 'kd_obat' //kolom di table Penjualan
+        foreignKey: 'id' //kolom di table Penjualan
     })
     public penjualan: HasMany<typeof Penjualan>
 
