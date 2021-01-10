@@ -5,9 +5,9 @@ import Persediaan from 'App/Models/Persediaan'
 import { DateTime } from 'luxon'
 
 export default class PenjualanController {
-    public async index({ response }: HttpContextContract) {
+    public async index({ view }: HttpContextContract) {
         const daftarPenjualan = await Penjualan.all()
-        response.json(daftarPenjualan)
+        return view.render('transaksi/index')
     }
 
     public async store({ request, response }: HttpContextContract) {
