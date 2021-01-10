@@ -53,7 +53,7 @@ export default class ObatController {
 
         await tambahPersediaan.save()
 
-        response.redirect().toRoute('obat.index')
+        response.redirect().back()
     }
 
     public async edit({ view, params, response }: HttpContextContract) {
@@ -77,6 +77,7 @@ export default class ObatController {
         await hapusObat.delete()
 
         response.json(`berhasil hapus obat dengan kode ${params.id}`)
+        response.redirect().back()
     }
 
     public async persediaan({ view }: HttpContextContract) {

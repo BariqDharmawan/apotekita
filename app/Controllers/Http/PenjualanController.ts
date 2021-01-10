@@ -5,9 +5,10 @@ import Persediaan from 'App/Models/Persediaan'
 import { DateTime } from 'luxon'
 
 export default class PenjualanController {
-    public async index({ view }: HttpContextContract) {
+    public async index({ view, response }: HttpContextContract) {
         const daftarPenjualan = await Penjualan.all()
-        return view.render('transaksi/index')
+        // return view.render('transaksi/index', {daftarPenjualan})
+        response.json(daftarPenjualan)
     }
 
     public async store({ request, response }: HttpContextContract) {
@@ -41,9 +42,7 @@ export default class PenjualanController {
 
         response.json(tambahPenjualan)
         response.json(updatePersediaan)
-    }
-
-    public async edit({ }: HttpContextContract) {
+        response.redirect().back()
     }
 
     public async update({ request, response, params }: HttpContextContract) {
