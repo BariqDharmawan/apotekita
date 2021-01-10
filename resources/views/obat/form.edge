@@ -1,0 +1,17 @@
+<form action="{{ route('obat.store') }}" id="form-obat" method="post" style="margin-bottom: 3rem">
+    {{ csrfField() }}
+    <input type="text" name="kd_obat" placeholder="kd_obat" required><br>
+    <input type="text" name="nm_obat" placeholder="nm_obat" required><br>
+    <select name="bentuk_obat" id="bentuk_obat" required><br>
+        <option value="SALEP">SALEP</option>
+        <option value="SYRUP">SYRUP</option>
+        <option value="KAPLET">KAPLET</option>
+        <option value="TABLET">TABLET</option>
+    </select>
+    <input type="date" name="tgl_prod" placeholder="tgl_prod" required><br>
+    <input type="date" name="tgl_exp" placeholder="tgl_exp" required><br>
+    <input type="number" name="harga" placeholder="harga" required><br>
+    <input type="number" name="jumlah_persediaan" placeholder="jumlah_persediaan" required><br>
+    <button type="submit">add obat</button>
+    <button type="reset">reset</button>
+</form>

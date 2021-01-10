@@ -5,10 +5,10 @@ export default class Penjualans extends BaseSchema {
 
     public async up() {
         this.schema.createTable(this.tableName, (table) => {
-            table.increments('id')
-            table.string('kd_obat_penjualan').notNullable()
-            table.date('tgl_trans_penjualan').notNullable()
-            table.bigInteger('jumlah_penjualan').notNullable()
+            table.string('kode').nullable().primary()
+            table.string('kd_obat').notNullable().unsigned()
+            table.date('tgl_transaksi').notNullable()
+            table.bigInteger('jumlah_beli').notNullable()
             table.timestamps()
         })
     }
