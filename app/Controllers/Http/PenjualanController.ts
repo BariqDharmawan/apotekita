@@ -1,11 +1,13 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator'
+import Database from '@ioc:Adonis/Lucid/Database'
 import Penjualan from 'App/Models/Penjualan'
 import Persediaan from 'App/Models/Persediaan'
 import { DateTime } from 'luxon'
 
 export default class PenjualanController {
     public async index({ view, response }: HttpContextContract) {
+        const contohFilterBulan = '02'
         const daftarPenjualan = await Penjualan.all()
         // return view.render('transaksi/index', {daftarPenjualan})
         response.json(daftarPenjualan)
@@ -72,6 +74,11 @@ export default class PenjualanController {
 
         response.json(tambahPenjualan)
 
+    }
+
+    public async filterBulan({ response, params }: HttpContextContract) {
+        const filterPenjualan = await Penjualan.query().where('bulan', params.bulan)
+        response.json(filterPenjualan)
     }
 
 }
