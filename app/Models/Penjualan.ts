@@ -4,7 +4,9 @@ import Obat from './Obat'
 
 export default class Penjualan extends BaseModel {
     public static table = 'penjualan'
-    // public static primaryKey = 'kode'
+    public static hidden() {
+        return ['tahun', 'bulan', 'hari']
+    }
 
     @column()
     public kode: String
@@ -17,6 +19,15 @@ export default class Penjualan extends BaseModel {
 
     @column()
     public kd_obat: String
+
+    // @column()
+    // public tahun: String
+
+    // @column()
+    // public bulan: String
+
+    // @column()
+    // public hari: String
 
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
