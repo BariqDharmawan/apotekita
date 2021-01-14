@@ -104,7 +104,7 @@ export default class ObatController {
     }
 
     public async persediaan({ view, response }: HttpContextContract) {
-        const persediaanObat = Persediaan.all()
+        const persediaanObat = await Persediaan.query().preload('obat')
         response.json(persediaanObat)
         // return view.render('obat/persediaan')
     }
