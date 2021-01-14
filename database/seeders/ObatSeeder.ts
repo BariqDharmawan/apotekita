@@ -1,10 +1,8 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
-import Obat from 'App/Models/Obat'
+import { ObatFactory } from 'Database/factories/ObatFactory'
 
 export default class ObatSeederSeeder extends BaseSeeder {
     public async run() {
-        await Obat.createMany([
-
-        ])
+        await ObatFactory.createMany(10)
     }
 }
