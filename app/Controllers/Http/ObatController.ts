@@ -68,7 +68,7 @@ export default class ObatController {
         const cariObat = await Obat.query().preload('persediaan')
             .where('kd_obat', 'LIKE', params.kd_obat)
 
-        cariObat.forEach(obat => response.json(obat))
+        response.json(cariObat)
         // return view.render('obat/index', { cariObat })
     }
 
@@ -77,7 +77,7 @@ export default class ObatController {
         await hapusObat.delete()
 
         response.json(`berhasil hapus obat dengan kode ${params.id}`)
-        response.redirect().back()
+        // response.redirect().back()
     }
 
     public async persediaan({ view }: HttpContextContract) {
