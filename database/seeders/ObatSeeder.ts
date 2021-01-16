@@ -10,11 +10,10 @@ export default class ObatSeederSeeder extends BaseSeeder {
                 kd_obat: `kode-obat${i}`,
                 nm_obat: `nama obat${i}`,
                 bentuk_obat: bentuk[Math.floor(Math.random() * bentuk.length)],
-                tgl_prod: new Date('2021-01-19'),
+                tgl_prod: new Date('2020-01-19'),
                 tgl_exp: new Date('2021-01-19'),
                 harga: Math.random() * 1000
             })
         }
-        // await ObatFactory.createMany(10)
     }
 }

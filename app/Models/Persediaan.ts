@@ -10,7 +10,7 @@ export default class Persediaan extends BaseModel {
     public id: number
 
     @column()
-    public kd_obat: String
+    public kd_obat: string
 
     @column()
     public jumlah_persediaan: number

@@ -10,13 +10,13 @@ export default class Obat extends BaseModel {
     public static primaryKey = 'kd_obat'
 
     @column({ isPrimary: true })
-    public kd_obat: String
+    public kd_obat: string
 
     @column()
-    public nm_obat: String
+    public nm_obat: string
 
     @column()
-    public bentuk_obat: String
+    public bentuk_obat: string
 
     @column()
     public tgl_prod: Date

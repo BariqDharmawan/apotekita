@@ -5,14 +5,13 @@ export default class Penjualans extends BaseSchema {
 
     public async up() {
         this.schema.createTable(this.tableName, (table) => {
-            table.increments('id').primary()
-            table.string('kode').notNullable()
+            table.string('kode').notNullable().primary()
             table.string('kd_obat').notNullable()
-            table.date('tgl_transaksi').notNullable()
+            table.date('waktu_transaksi').notNullable()
             // ini kebutuhan filter tgl, di ui engga dimunculin
-            table.string('tahun').nullable()
+            table.integer('tahun').nullable()
             table.string('bulan').nullable()
-            table.string('hari').nullable()
+            table.integer('tanggal').nullable()
             // end of that
             table.bigInteger('jumlah_beli').notNullable()
             table.timestamps()

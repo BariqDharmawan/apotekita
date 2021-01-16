@@ -8,26 +8,26 @@ export default class Penjualan extends BaseModel {
         return ['tahun', 'bulan', 'hari']
     }
 
-    @column()
-    public kode: String
+    @column({ isPrimary: true })
+    public kode: string
 
     @column()
-    public tgl_transaksi: Date
+    public waktu_transaksi: Date
 
     @column()
     public jumlah_beli: number
 
     @column()
-    public kd_obat: String
+    public kd_obat: string
 
-    // @column()
-    // public tahun: String
+    @column()
+    public tahun: number
 
-    // @column()
-    // public bulan: String
+    @column()
+    public bulan: String
 
-    // @column()
-    // public hari: String
+    @column()
+    public tanggal: number
 
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
