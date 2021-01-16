@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('layouts.meta')
-    @include('layouts.css')
-    <title>@!section('title')</title>
+    @include('layouts/meta')
+    @include('layouts/css')
+    <title>
+        @!section('title-page')
+    </title>
 </head>
-<body>
-    @!section('main')
-    @include('layouts.script')
-    @include('layouts.footer')
+<body class="row mx-0">
+    @include('layouts/nav')
+    <div class="col row mx-0 flex-column justify-content-between">
+        <main class="py-4">
+            @!section('content')
+        </main>
+        @include('layouts/footer')
+    </div>
+    @include('layouts/script')
 </body>

@@ -1,4 +1,32 @@
 @layout('layouts/master')
-@section('main')
-    <p>homepage</p>
+@section('title-page')
+  title of homepage
+@endsection
+@section('content')
+    <div class="row align-items-center mb-5">
+        <div class="col-5">
+            <h1 class="mb-0">Selamat Datang di</h1>
+        </div>
+        <div class="col">
+            <img src="/img/logo.png" alt="Logo apotiking" height="60">
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col row flex-column mx-0">
+            <p class="text-secondary">
+                APOTIKING adalah apotek yang dibuat oleh
+                Papa Barik dkk. Apotek ini dibuat untuk
+                memenuhi tugas akhir praktikum database
+                lanjut.
+            </p>
+            <form action="" method="POST" class="mt-auto">
+                <div class="mb-3">
+                    <input type="search" class="form-control" id="cari-obat" placeholder="Cari berdasarkan nama atau kode obat...">
+                </div>
+            </form>
+        </div>
+        <div class="col text-center">
+            <img src="/img/home-doctor.jpeg" alt="" height="250">
+        </div>
+    </div>
 @endsection

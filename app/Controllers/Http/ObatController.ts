@@ -8,15 +8,15 @@ export default class ObatController {
     public async index({ view, response }: HttpContextContract) {
         const tanggalHariIni = new Date().toISOString()
         const obatTidakKadaluarsa = await Obat.query().preload('persediaan')
-                                            .where('tgl_exp', '>', tanggalHariIni)
+            .where('tgl_exp', '>', tanggalHariIni)
         const obatKadaluarsa = await Obat.query().preload('persediaan')
-                                        .where('tgl_exp', '<', tanggalHariIni)
+            .where('tgl_exp', '<', tanggalHariIni)
 
-        response.json({
-            'obatTidakKadaluarsa': obatTidakKadaluarsa,
-            'obatKadaluarsa': obatKadaluarsa
-        })
-        // return view.render('obat/index', { semuaObat })
+        // response.json({
+        //     'obatTidakKadaluarsa': obatTidakKadaluarsa,
+        //     'obatKadaluarsa': obatKadaluarsa
+        // })
+        return view.render('obat/index', { obatKadaluarsa, obatTidakKadaluarsa })
     }
 
     public async store({ request, response }: HttpContextContract) {
