@@ -7,17 +7,17 @@
 <table class="table table-borderless">
   <thead>
     <tr>
-      <th scope="col">kode</th>
-      <th scope="col">nama</th>
-      <th scope="col">bentuk</th>
-      <th scope="col">tgl produksi</th>
-      <th scope="col">tgl kadaluarsa</th>
-      <th scope="col">harga</th>
+      <th scope="col" class="text-center">Kode</th>
+      <th scope="col" class="text-center">Nama</th>
+      <th scope="col" class="text-center">Bentuk</th>
+      <th scope="col" class="text-center">Tgl Produksi</th>
+      <th scope="col" class="text-center">Tgl Kadaluarsa</th>
+      <th scope="col" class="text-center">Harga</th>
     </tr>
   </thead>
   <tbody>
       @each(obat in obatTidakKadaluarsa)
-      <tr>
+      <tr class="text-center">
         <td>{{ obat.kd_obat }}</td>
         <td>{{ obat.nm_obat }}</td>
         <td>{{ obat.bentuk_obat }}</td>

@@ -9,9 +9,9 @@ export default class PenjualanController {
     public async index({ view, response }: HttpContextContract) {
         const contohFilterBulan = '02'
         const daftarPenjualan = await Penjualan.all()
-        // return view.render('transaksi/index', {daftarPenjualan})
-        response.json(daftarPenjualan)
-        return view.render('transaksi/index', { daftarPenjualan })
+        return view.render('transaksi/index', {daftarPenjualan})
+        // response.json(daftarPenjualan)
+        
     }
 
     public async store({ request, response }: HttpContextContract) {
