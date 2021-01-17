@@ -7,18 +7,17 @@
 <table class="table table-borderless">
   <thead>
     <tr>
-      <th scope="col">kode</th>
-      <th scope="col">tgl Transaksi</th>
-      <th scope="col">jumlah</th>
+      <th scope="col" class="text-center">Kode</th>
+      <th scope="col" class="text-center">Tgl Transaksi</th>
+      <th scope="col" class="text-center">Jumlah</th>
     </tr>
   </thead>
   <tbody>
-      @each(obat in transaksi)
+      @each(penjualan in daftarPenjualan)
       <tr>
-        <td>{{ obat.kd_obat }}</td> //ini variabel drmn
-        <td>{{ obat.tgl_prod }}</td>
-        <td>{{ obat.tgl_exp }}</td>
-        <td>IDR {{ obat.harga }}</td>
+        <td class="text-center">{{ penjualan.kd_obat }}</td>
+        <td class="text-center">{{ penjualan.waktu_transaksi }}</td>
+        <td class="text-center">{{ penjualan.jumlah_beli }}</td>
       </tr>
       @endeach
   </tbody>

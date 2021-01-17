@@ -1,0 +1,42 @@
+<div class="modal fade" id="transaksiMaret" tabindex="-1" 
+aria-labelledby="transaksiMaretLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="transaksiMaretLabel">Transaksi Maret</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Kode</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Total Harga Terjual</th>
+                <th scope="col">Sisa Stok</th>
+              </tr>
+            </thead>
+            <tbody>
+                @each(obat in obatKadaluarsa)
+                <tr>
+                  <td>{{ obat.kd_obat }}</td>
+                  <td>{{ obat.nm_obat }}</td>
+                  <td>{{ obat.bentuk_obat }}</td>
+                  <td>{{ obat.tgl_prod }}</td>
+                  <td>{{ obat.tgl_exp }}</td>
+                  <td>IDR {{ obat.harga }}</td>
+                </tr>
+                @else
+                <tr>
+                    <td colspan="6" class="text-center">Tidak ada transaksi</td>
+                </tr>
+                @endeach
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>

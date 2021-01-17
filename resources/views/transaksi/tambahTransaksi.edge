@@ -8,21 +8,23 @@ aria-labelledby="tambahTransaksiLabel" aria-hidden="true">
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form class="row g-3">
           <div class="mb-3">
             <label for="addKodeObat" class="form-label">Kode Obat</label>
             <input type="code" class="form-control" id="addKodeObat" aria-describedby="emailHelp">
           </div>
-          <div class="mb-3">
-            <label for="addTglTransaksi" class="control-label">Tanggal Produksi</label>
+          <div class="col-md-6">
+            <label for="addTglTransaksi" class="form-label">Tanggal Produksi</label>
             <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
           </div>
-          <div class="mb-3">
+          <div class="col-md-6">
             <label for="addJumlah" class="form-label">Jumlah</label>
-            <input type="code" class="form-control" id="addKodeObat" aria-describedby="emailHelp">
+            <input class="form-control" id="addKodeObat">
           </div>
-          <button type="submit" class="btn btn-danger">Batal</button>
-          <button type="submit" class="btn btn-primary">Tambah Obat</button>
+          <div class="mb-3">
+            <button id="cancel" name="cancel" class="btn btn-danger" value="1">Batal</button>
+            <button type="submit" class="btn btn-primary">Tambah Obat</button>
+          </div>
         </form>
       </div>
     </div>
