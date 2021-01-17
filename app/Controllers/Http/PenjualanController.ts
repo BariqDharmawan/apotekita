@@ -11,6 +11,7 @@ export default class PenjualanController {
         const daftarPenjualan = await Penjualan.all()
         // return view.render('transaksi/index', {daftarPenjualan})
         response.json(daftarPenjualan)
+        return view.render('transaksi/index', { daftarPenjualan })
     }
 
     public async store({ request, response }: HttpContextContract) {

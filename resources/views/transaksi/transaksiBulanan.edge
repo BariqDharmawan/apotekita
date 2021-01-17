@@ -1,0 +1,36 @@
+<div class="modal fade" id="obatKadaluarsa" tabindex="-1" 
+aria-labelledby="obatKadaluarsaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="obatKadaluarsaLabel">Obat kadaluarsa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Kode Obat</th>
+                <th scope="col">Tgl transaksi</th>
+                <th scope="col">Jumlah</th>
+              </tr>
+            </thead>
+            <tbody>
+                @each(obat in obatKadaluarsa)
+                <tr>
+                  <td>{{ penjualan.kd_obat }}</td>
+                  <td>{{ penjualan.kd_obat }}</td>
+                  <td>IDR {{ penjualan.waktu_transaksi }}</td>
+                </tr>
+                @else
+                <tr>
+                    <td colspan="6" class="text-center">Tidak ada transaksi</td>
+                </tr>
+                @endeach
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>
