@@ -7,23 +7,20 @@ aria-labelledby="transaksiBulananLabel" aria-hidden="true">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
-      <div class="modal-body">
-        <div class="row g-3">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transaksiJanuari">
-            Transaksi Januari
-          </button>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transaksiFebruari">
-            Transaksi Februari
-          </button>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transaksiMaret">
-            Transaksi Maret
-          </button>
-        </div>
-      
-        @include('transaksi/transaksiJanuari')
-        @include('transaksi/transaksiFebruari')
-        @include('transaksi/transaksiMaret')
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transaksiJanuari">
+          Transaksi Januari
+        </button>
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#transaksiFebruari">
+          Transaksi Februari
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transaksiMaret">
+          Transaksi Maret
+        </button>
       </div>
     </div>
   </div>
 </div>
+@include('transaksi/transaksiJanuari')
+@include('transaksi/transaksiFebruari')
+@include('transaksi/transaksiMaret')
