@@ -5,17 +5,13 @@ import Persediaan from 'App/Models/Persediaan'
 
 export default class ObatController {
 
-    public async index({ view, response }: HttpContextContract) {
+    public async index({ view }: HttpContextContract) {
         const tanggalHariIni = new Date().toISOString()
         const obatTidakKadaluarsa = await Obat.query().preload('persediaan')
             .where('tgl_exp', '>', tanggalHariIni)
         const obatKadaluarsa = await Obat.query().preload('persediaan')
             .where('tgl_exp', '<', tanggalHariIni)
 
-        // response.json({
-        //     'obatTidakKadaluarsa': obatTidakKadaluarsa,
-        //     'obatKadaluarsa': obatKadaluarsa
-        // })
         return view.render('obat/index', { obatKadaluarsa, obatTidakKadaluarsa })
     }
 
@@ -88,7 +84,8 @@ export default class ObatController {
 
     public async show({ response, view, params }: HttpContextContract) {
         const cariObat = await Obat.query().preload('persediaan')
-            .where('kd_obat', 'LIKE', params.kd_obat)
+            .where('kd_obat', params.obat)
+            .orWhere('nm_obat', 'LIKE', params.obat)
 
         response.json(cariObat)
         // return view.render('obat/index', { cariObat })

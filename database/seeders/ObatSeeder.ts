@@ -12,7 +12,7 @@ export default class ObatSeederSeeder extends BaseSeeder {
                 bentuk_obat: bentuk[Math.floor(Math.random() * bentuk.length)],
                 tgl_prod: new Date('2020-01-19'),
                 tgl_exp: new Date('2021-01-19'),
-                harga: Math.random() * 1000
+                harga: Math.random() * 1000 * 1000
             })
         }
     }

@@ -6,11 +6,10 @@ import Persediaan from 'App/Models/Persediaan'
 import { DateTime } from 'luxon'
 
 export default class PenjualanController {
+
     public async index({ view, response }: HttpContextContract) {
-        const contohFilterBulan = '02'
         const daftarPenjualan = await Penjualan.all()
-        // return view.render('transaksi/index', {daftarPenjualan})
-        response.json(daftarPenjualan)
+        return view.render('transaksi/index', { daftarPenjualan })
     }
 
     public async store({ request, response }: HttpContextContract) {
@@ -32,8 +31,8 @@ export default class PenjualanController {
 
         const jumlahBeli = Number(request.input('jumlah_beli'))
         const tambahPenjualan = new Penjualan()
-        tambahPenjualan.kode = DateTime.local().toFormat('dd_LL_yyyy_HH_mm_ss') + '_' + kdObat
-        tambahPenjualan.tgl_transaksi = request.input('tgl_transaksi')
+        tambahPenjualan.kode = 'kode-penjualan-' + DateTime.local().toFormat('dd-LL-yyyy-HH-mm-ss')
+        tambahPenjualan.waktu_transaksi = request.input('tgl_transaksi')
         tambahPenjualan.jumlah_beli = jumlahBeli
         tambahPenjualan.kd_obat = kdObat
         await tambahPenjualan.save()
@@ -66,8 +65,7 @@ export default class PenjualanController {
         })
 
         const tambahPenjualan = await Penjualan.findOrFail(params.id)
-        tambahPenjualan.kode = request.input('kode')
-        tambahPenjualan.tgl_transaksi = request.input('tgl_transaksi')
+        tambahPenjualan.waktu_transaksi = request.input('tgl_transaksi')
         tambahPenjualan.jumlah_beli = Number(request.input('jumlah_beli'))
         tambahPenjualan.kd_obat = request.input('kd_obat')
         await tambahPenjualan.save()
