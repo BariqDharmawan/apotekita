@@ -1,14 +1,16 @@
+@set('navs', [
+    {url: '/', text: 'homepage'},
+    {url: '/obat', text: 'manage obat'},
+    {url: '/persediaan', text: 'persediaan obat'},
+    {url: '/transaksi', text: 'manage transaksi'},
+])
+
 <ul class="nav flex-column col-3 py-3 bg-primary">
-    <li class="nav-item text-capitalize mb-4">
-        <a class="nav-link text-white" aria-current="page" href="/">homepage</a>
-    </li>
-    <li class="nav-item text-capitalize mb-4">
-      <a class="nav-link text-white" aria-current="page" href="/obat">manage obat</a>
-    </li>
-    <li class="nav-item text-capitalize mb-4">
-      <a class="nav-link text-white" href="#">persediaan</a>
-    </li>
-    <li class="nav-item text-capitalize">
-      <a class="nav-link text-white" href="#">transaksi</a>
-    </li>
+    @each(menu in navs)
+        <li class="nav-item text-capitalize mb-4">
+            <a class="nav-link text-white" aria-current="page" href="{{ menu.url }}">
+                {{ menu.text }}
+            </a>
+        </li>
+    @endeach
 </ul>
