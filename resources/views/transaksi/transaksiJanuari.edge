@@ -1,9 +1,9 @@
-<div class="modal fade" id="obatKadaluarsa" tabindex="-1" 
-aria-labelledby="obatKadaluarsaLabel" aria-hidden="true">
+<div class="modal fade" id="transaksiJanuari" tabindex="-1" 
+aria-labelledby="transaksiJanuariLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="obatKadaluarsaLabel">Obat kadaluarsa</h5>
+        <h5 class="modal-title" id="transaksiJanuariLabel">Transaksi Januari</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
@@ -13,10 +13,10 @@ aria-labelledby="obatKadaluarsaLabel" aria-hidden="true">
               <tr>
                 <th scope="col">Kode</th>
                 <th scope="col">Nama</th>
-                <th scope="col">Bentuk</th>
-                <th scope="col">Tgl Produksi</th>
-                <th scope="col">Tgl Kadaluarsa</th>
                 <th scope="col">Harga</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Total Harga Terjual</th>
+                <th scope="col">Sisa Stok</th>
               </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@ aria-labelledby="obatKadaluarsaLabel" aria-hidden="true">
                 </tr>
                 @else
                 <tr>
-                    <td colspan="6" class="text-center">Tidak ada obat yg kadaluarsa</td>
+                    <td colspan="6" class="text-center">Tidak ada transaksi</td>
                 </tr>
                 @endeach
             </tbody>

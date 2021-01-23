@@ -1,0 +1,32 @@
+<div class="modal fade" id="tambahTransaksi" tabindex="-1" 
+aria-labelledby="tambahTransaksiLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahTransaksiLabel">Tambah Transaksi</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="mb-3">
+            <label for="addKodeObat" class="form-label">Kode Obat</label>
+            <input type="code" class="form-control" id="addKodeObat" aria-describedby="emailHelp">
+          </div>
+          <div class="col-md-6">
+            <label for="addTglTransaksi" class="form-label">Tanggal Produksi</label>
+            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+          </div>
+          <div class="col-md-6">
+            <label for="addJumlah" class="form-label">Jumlah</label>
+            <input class="form-control" id="addKodeObat">
+          </div>
+          <div class="mb-3">
+            <button id="cancel" name="cancel" class="btn btn-danger" value="1">Batal</button>
+            <button type="submit" class="btn btn-primary">Tambah Obat</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

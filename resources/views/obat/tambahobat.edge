@@ -1,0 +1,48 @@
+<div class="modal fade" id="tambahObat" tabindex="-1" 
+aria-labelledby="tambahObatLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahObatLabel">Tambah Obat</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="addKodeObat" class="form-label">Kode Obat</label>
+            <input type="code" class="form-control" id="addKodeObat" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="addNamaObat" class="form-label">Nama Obat</label>
+            <input type="password" class="form-control" id="addNamaObat">
+          </div>
+          <div class="mb-3">
+            <label for="addBentukObat" class="form-label">Bentuk Obat</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Pilih bentuk obat</option>
+              <option value="1">Salep</option>
+              <option value="2">Tablet</option>
+              <option value="3">Kaplet</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="addTglProduksi" class="control-label">Tanggal Produksi</label>
+            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+          </div>
+          <div class="mb-3">
+            <label for="addTglKadaluarsa" class="control-label">Tanggal Kadaluarsa</label>
+            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+          </div>
+          <label for="basic-url" class="form-label">Harga Obat</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Rp.</span>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+          </div>
+          <button id="cancel" name="cancel" class="btn btn-danger" value="1">Batal</button>
+          <button type="submit" class="btn btn-primary">Tambah Obat</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
