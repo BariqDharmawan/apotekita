@@ -18,10 +18,10 @@ export default class PersediaanController {
     public async store({ request, response }: HttpContextContract) {
         await request.validate({
             schema: schema.create({
-                kd_obat: schema.string({ trim: true }, [
+                obat_id: schema.number([
                     rules.required(),
-                    rules.exists({ table: 'obat', column: 'kd_obat' }),
-                    rules.maxLength(100)
+                    rules.unsigned(),
+                    rules.exists({ table: 'obat', column: 'id' })
                 ]),
                 jumlah_persediaan: schema.number([
                     rules.required(),
@@ -31,11 +31,15 @@ export default class PersediaanController {
             reporter: validator.reporters.jsonapi
         })
 
-        const tambahPersediaan = new Persediaan()
-        tambahPersediaan.jumlah = request.input('jumlah')
-        tambahPersediaan.obat_id = request.input('obat_id')
+        const obat = await Obat.find(request.input('obat_id'))
+        await obat?.preload('persediaan')
 
-        await tambahPersediaan.save()
+        const jumlahSaatIni = Number(obat?.persediaan.jumlah)
+        await Persediaan.updateOrCreate(
+            { obat_id: request.input('obat_id') },
+            { jumlah: jumlahSaatIni + Number(request.input('jumlah_persediaan')) }
+        )
+
         response.redirect().back()
     }
 

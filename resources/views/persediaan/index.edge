@@ -7,19 +7,27 @@
     <table class="table table-borderless">
         <thead>
             <tr>
-            <th class="text-center">Kode</th>
-            <th class="text-center">Jumlah persediaan</th>
+                <th>Kode</th>
+                <th>Jumlah persediaan</th>
+                <th>Sudah kadaluarsa</th>
             </tr>
         </thead>
         <tbody>
             @each(persediaan in persediaanObat)
                 <tr>
-                    <td class="text-center">{{ persediaan.obat.kd_obat }}</td>
-                    <td class="text-center">{{ persediaan.jumlah + ' pcs' }}</td>
+                    <td>{{ persediaan.obat.kd_obat }}</td>
+                    <td>{{ persediaan.jumlah + ' pcs' }}</td>
+                    <td>
+                        @if(persediaan.obat.tgl_exp < new Date())
+                            <span class="badge bg-danger">Sudah</span>
+                        @else
+                            <span class="badge bg-info">Belum</span>
+                        @endif
+                    </td>
                 </tr>
             @else
                 <tr>
-                    <td class="text-center" colspan="2">Tidak ada obat</td>
+                    <td colspan="2">Tidak ada obat</td>
                 </tr>
             @endeach
         </tbody>

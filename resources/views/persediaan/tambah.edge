@@ -18,21 +18,24 @@ aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-body">
                 @if(namaSemuaObat.length > 0)
                     <form action="{{ route('persediaan_obat.store') }}" method="POST"
-                    id="form-tambah-transaksi">
-                        <select name="kd_obat">
-                            @each(obat in namaSemuaObat)
-                                <option value="{{ obat.kd_obat }}">
-                                    {{ obat.kd_obat  }}
-                                </option>
-                            @endeach
-                        </select>
-                        <input type="number" name="jumlah_persediaan" min=""
-                        placeholder="jumlah persediaan" required>
-                        <button type="submit">tambah persediaan</button>
+                    id="form-tambah-persediaan">
+                        <div class="mb-3">
+                            <select name="obat_id" class="form-select" required>
+                                @each(obat in namaSemuaObat)
+                                    <option value="{{ obat.id }}">
+                                        {{ obat.kd_obat  }}
+                                    </option>
+                                @endeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" name="jumlah_persediaan"
+                            placeholder="jumlah persediaan" min="1" class="form-control" required>
+                        </div>
                     </form>
                 @else
-                    <h4>
-                        Tidak ada obat yg bisa ditambah 
+                    <h4 class="text-center">
+                        Tidak ada obat yg bisa ditambah <br>
                         persediaannya krn semua obat kadaluarsa
                     </h4>
                 @endif
@@ -41,8 +44,8 @@ aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" 
                 data-bs-dismiss="modal" aria-label="Close">Batal</button>
-                <button type="submit" class="btn btn-primary" form="form-tambah-transaksi">
-                    Tambah transaksi baru
+                <button type="submit" class="btn btn-primary" form="form-tambah-persediaan">
+                    Tambah persediaan baru
                 </button>
             </div>
             @endif
