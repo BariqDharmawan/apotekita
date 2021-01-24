@@ -5,8 +5,9 @@ export default class Obats extends BaseSchema {
 
     public async up() {
         this.schema.createTable(this.tableName, (table) => {
-            table.string('kd_obat').notNullable().primary()
-            table.string('nm_obat', 25).notNullable()
+            table.increments('id').primary()
+            table.string('kd_obat').notNullable()
+            table.string('nm_obat').notNullable()
             table.enum('bentuk_obat', ['salep', 'syrup', 'kaplet', 'tablet']).notNullable()
             table.date('tgl_prod').nullable()
             table.date('tgl_exp').nullable()

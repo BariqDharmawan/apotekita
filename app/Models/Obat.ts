@@ -7,9 +7,10 @@ export default class Obat extends BaseModel {
 
     public static table = 'obat'
 
-    public static primaryKey = 'kd_obat'
-
     @column({ isPrimary: true })
+    public id: number
+
+    @column()
     public kd_obat: string
 
     @column()
@@ -34,15 +35,11 @@ export default class Obat extends BaseModel {
     public updatedAt: DateTime
 
     @hasOne(() => Persediaan, {
-        localKey: 'kd_obat',
-        foreignKey: 'kd_obat'
+        foreignKey: 'obat_id'
     })
     public persediaan: HasOne<typeof Persediaan>
 
-    @hasMany(() => Penjualan, {
-        localKey: 'kd_obat',
-        foreignKey: 'id' //kolom di table Penjualan
-    })
+    @hasMany(() => Penjualan)
     public penjualan: HasMany<typeof Penjualan>
 
 }

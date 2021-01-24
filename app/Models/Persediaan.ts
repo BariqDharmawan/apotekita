@@ -5,15 +5,16 @@ import Obat from './Obat'
 export default class Persediaan extends BaseModel {
 
     public static table = 'persediaan'
+    public static primaryKey = 'id'
 
-    @column({ isPrimary: true })
+    @column()
     public id: number
 
     @column()
-    public kd_obat: string
+    public jumlah: number
 
     @column()
-    public jumlah_persediaan: number
+    public obat_id: number
 
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
@@ -22,7 +23,7 @@ export default class Persediaan extends BaseModel {
     public updatedAt: DateTime
 
     @belongsTo(() => Obat, {
-        foreignKey: 'kd_obat'
+        foreignKey: 'obat_id'
     })
     public obat: BelongsTo<typeof Obat>
 

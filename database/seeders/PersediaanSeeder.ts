@@ -5,8 +5,8 @@ export default class PersediaanSeederSeeder extends BaseSeeder {
     public async run() {
         for (let i = 0; i < 11; i++) {
             await Persediaan.create({
-                kd_obat: `kode-obat${i}`,
-                jumlah_persediaan: Math.round(Math.random() * 100),
+                obatId: i,
+                jumlah: Math.round(Math.random() * 100),
             })
         }
     }
