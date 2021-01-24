@@ -5,18 +5,19 @@ import Persediaan from 'App/Models/Persediaan'
 
 export default class ObatController {
 
-    public async index({ view }: HttpContextContract) {
-        const tanggalHariIni = new Date().toISOString()
-        const obatTidakKadaluarsa = await Obat.query().preload('persediaan')
-            .where('tgl_exp', '>', tanggalHariIni)
-        const obatKadaluarsa = await Obat.query().preload('persediaan')
-            .where('tgl_exp', '<', tanggalHariIni)
+    public async index({ response, view }: HttpContextContract) {
 
+        const obatTidakKadaluarsa = await Obat.query()
+            .where('tgl_exp', '>', new Date().toISOString())
+        const obatKadaluarsa = await Obat.query().where('tgl_exp', '<', new Date().toISOString())
+
+        // response.json([obatTidakKadaluarsa, obatKadaluarsa])
         return view.render('obat/index', { obatKadaluarsa, obatTidakKadaluarsa })
     }
 
     public async store({ request, response }: HttpContextContract) {
         const hargaMaks = 999999999, hargaMin = 1000
+        // response.json(request.all())
         await request.validate({
             schema: schema.create({
                 kd_obat: schema.string({}, [
@@ -26,25 +27,23 @@ export default class ObatController {
                 nm_obat: schema.string({}, [
                     rules.required(),
                     rules.maxLength(25),
-                    rules.alpha({
-                        allow: ['space', 'dash']
-                    })
                 ]),
                 bentuk_obat: schema.enum(['salep', 'syrup', 'kaplet', 'tablet'] as const),
                 tgl_prod: schema.date({}, [
                     rules.required(),
-                    rules.before('today'),
-                    rules.beforeField('tgl_exp')
                 ]),
                 tgl_exp: schema.date({}, [
                     rules.required(),
-                    rules.after('today'),
-                    rules.afterField('tgl_prod')
                 ]),
                 harga: schema.number([
                     rules.required(),
                     rules.unsigned(),
                     rules.range(hargaMin, hargaMaks)
+                ]),
+                jumlah_persediaan: schema.number([
+                    rules.required(),
+                    rules.unsigned(),
+                    rules.range(1, 9999)
                 ])
             }),
             messages: {
@@ -54,27 +53,28 @@ export default class ObatController {
             reporter: validator.reporters.jsonapi
         })
 
-        await Obat.updateOrCreate(
-            { kd_obat: request.input('kd_obat') },
-            {
-                nm_obat: request.input('nm_obat'),
-                bentuk_obat: request.input('bentuk_obat'),
-                tgl_prod: request.input('tgl_prod'),
-                tgl_exp: request.input('tgl_exp'),
-                harga: request.input('harga')
-            }
-        )
+        const tambahObat = new Obat()
+        tambahObat.kd_obat = request.input('kd_obat')
+        tambahObat.nm_obat = request.input('nm_obat')
+        tambahObat.bentuk_obat = request.input('bentuk_obat')
+        tambahObat.tgl_prod = request.input('tgl_prod')
+        tambahObat.tgl_exp = request.input('tgl_exp')
+        tambahObat.harga = request.input('harga')
+        // await tambahObat.save()
+
+        // const insertedObat = await Obat.findOrFail(tambahObat.id)
+        // response.json(insertedObat)
 
         const tambahPersediaan = new Persediaan()
-        tambahPersediaan.kd_obat = request.input('kd_obat')
-        tambahPersediaan.jumlah_persediaan = request.input('jumlah_persediaan')
+        tambahPersediaan.jumlah = request.input('jumlah_persediaan')
+        // tambahPersediaan.obatId = insertedObat.id
+        await tambahObat.related('persediaan').save(tambahPersediaan)
 
-        await tambahPersediaan.save()
-
-        response.redirect().back()
+        response.json([tambahObat, tambahPersediaan])
+        // response.redirect().back()
     }
 
-    public async edit({ view, params, response }: HttpContextContract) {
+    public async edit({ view, params }: HttpContextContract) {
         const obat = await Obat.query()
             .preload('persediaan')
             .where('kd_obat', params.id).firstOrFail()
@@ -82,28 +82,21 @@ export default class ObatController {
         return view.render('obat/edit', { obat: obat })
     }
 
-    public async show({ response, view, params }: HttpContextContract) {
+    public async show({ view, request }: HttpContextContract) {
+        const query = request.input('obat')
         const cariObat = await Obat.query().preload('persediaan')
-            .where('kd_obat', params.obat)
-            .orWhere('nm_obat', 'LIKE', params.obat)
+            .where('kd_obat', query)
+            .orWhere('nm_obat', 'LIKE', '%' + query + '%')
 
-        response.json(cariObat)
-        // return view.render('obat/index', { cariObat })
+        return view.render('obat/cari', { cariObat, query })
     }
 
     public async destroy({ response, params }: HttpContextContract) {
         const hapusObat = await Obat.findByOrFail('kd_obat', params.id)
         await hapusObat.delete()
 
-        response.json(`berhasil hapus obat dengan kode ${params.id}`)
-
-        // response.redirect().back()
-    }
-
-    public async persediaan({ view, response }: HttpContextContract) {
-        const persediaanObat = await Persediaan.query().preload('obat')
-        response.json(persediaanObat)
-        // return view.render('obat/persediaan')
+        // response.json(`berhasil hapus obat dengan kode ${params.id}`)
+        response.redirect().back()
     }
 
 }

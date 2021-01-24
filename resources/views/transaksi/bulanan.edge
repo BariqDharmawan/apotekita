@@ -14,9 +14,21 @@
     <tbody>
         @each(penjualan in filterPenjualan)
         <tr>
-            <td class="text-center">{{ penjualan.kd_obat }}</td>
-            <td class="text-center">{{ penjualan.waktu_transaksi }}</td>
+            <td class="text-center">{{ penjualan.obat.kd_obat }}</td>
+            <td class="text-center">
+                {{ 
+                    new Date(penjualan.waktu_transaksi).toLocaleDateString('id-ID', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })
+                }}
+            </td>
             <td class="text-center">{{ penjualan.jumlah_beli }}</td>
+        </tr>
+        @else
+        <tr>
+            <td class="text-center">Tidak ada transaksi di bulan {{ namaBulan }}</td>
         </tr>
         @endeach
     </tbody>

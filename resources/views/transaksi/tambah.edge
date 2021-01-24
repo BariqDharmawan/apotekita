@@ -11,8 +11,29 @@ data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
                 aria-label="Close"></button>
             </div>
         <div class="modal-body">
-            <form action="{{ route('transaksi.store') }}" method="POST" id="form-tambah-transaksi">
-                
+            <form action="{{ route('penjualan.store') }}" method="POST" id="form-tambah-transaksi">
+                <div class="mb-3">
+                    <label for="kode-obat">Kode obat</label>
+                    <select class="form-select" id="kode-obat" name="kd_obat" required>
+                        <option disabled hidden selected>Pilih kode obat</option>
+                        @each(obat in listObat)
+                            <option value="{{ obat.kd_obat }}" 
+                            data-persediaan="{{ obat.persediaan.jumlah }}">
+                                {{ obat.kd_obat  }}
+                            </option>
+                        @endeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="tgl-transaksi" class="form-label">Tanggal Transaksi</label>
+                    <input type="date" name="tgl_transaksi"
+                    class="form-control" id="tgl-transaksi" required>
+                </div>
+                <div class="mb-3">
+                    <label for="jumlah-beli" class="form-label">Jumlah Beli</label>
+                    <input type="number" name="jumlah_beli" min="1"
+                    class="form-control" id="jumlah-beli" required>
+                </div>
             </form>
         </div>
         <div class="modal-footer justify-content-between">

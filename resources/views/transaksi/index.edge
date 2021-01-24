@@ -26,6 +26,10 @@
             </td>
             <td class="text-center">{{ penjualan.jumlah_beli }}</td>
         </tr>
+        @else
+        <tr>
+            <td colspan="3" class="text-center">Tidak ada transaksi</td>
+        </tr>
         @endeach
     </tbody>
     </table>
@@ -34,7 +38,7 @@
         Tambah Transaksi
     </button>
     @include('transaksi/tambah')
-    <div class="btn-group dropup">
+    <div class="btn-group dropend">
         <button type="button" class="btn btn-secondary dropdown-toggle" 
         data-bs-toggle="dropdown" aria-expanded="false">
             Transaksi Bulanan
@@ -46,10 +50,6 @@
                     class="dropdown-item">
                         Transaksi {{ listMontName[key] }} 
                     </a>
-                    <button type="button" class="dropdown-item" 
-                    data-bs-toggle="modal" data-bs-target="#transaksi{{ bulan }}">
-                        
-                    </button>
                 </li>
             @endeach
         </ul>

@@ -24,13 +24,13 @@ export default class Penjualan extends BaseModel {
     public jumlah_beli: number
 
     @column()
-    public obatId: number
+    public obat_id: number
 
     @column()
     public tahun: number
 
     @column()
-    public bulan: string
+    public bulan: number
 
     @column()
     public tanggal: number
@@ -41,6 +41,8 @@ export default class Penjualan extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @belongsTo(() => Obat)
+    @belongsTo(() => Obat, {
+        foreignKey: 'obat_id'
+    })
     public obat: BelongsTo<typeof Obat>
 }

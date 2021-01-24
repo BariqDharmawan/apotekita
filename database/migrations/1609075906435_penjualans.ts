@@ -14,7 +14,7 @@ export default class Penjualans extends BaseSchema {
             table.integer('tanggal').nullable()
             // end of that
             table.bigInteger('jumlah_beli').notNullable()
-            table.integer('obatId').notNullable()
+            table.integer('obat_id').notNullable()
             table.timestamps()
         })
     }
