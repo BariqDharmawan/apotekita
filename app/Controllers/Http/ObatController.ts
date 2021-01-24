@@ -37,7 +37,6 @@ export default class ObatController {
                 harga: schema.number([
                     rules.required(),
                     rules.unsigned(),
-                    rules.range(hargaMin, hargaMaks)
                 ]),
                 jumlah_persediaan: schema.number([
                     rules.required(),
@@ -65,7 +64,7 @@ export default class ObatController {
         tambahPersediaan.jumlah = request.input('jumlah_persediaan')
         await tambahObat.related('persediaan').save(tambahPersediaan)
 
-        response.redirect().back()
+        response.redirect().toRoute('obat.index')
     }
 
     public async edit({ view, params }: HttpContextContract) {
