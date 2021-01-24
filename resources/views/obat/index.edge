@@ -4,60 +4,43 @@
 @endsection
 @section('content')
 
-<table class="table table-borderless">
-    <thead>
-        <tr>
-          <th scope="col">kode</th>
-          <th scope="col">nama</th>
-          <th scope="col">bentuk</th>
-          <th scope="col">tgl produksi</th>
-          <th scope="col">tgl kadaluarsa</th>
-          <th scope="col">harga</th>
-        </tr>
-    </thead>
-    <tbody>
-        @each(obat in obatTidakKadaluarsa)
-        <tr>
-            <td>{{ obat.kd_obat }}</td>
-            <td>{{ obat.nm_obat }}</td>
-            <td>{{ obat.bentuk_obat }}</td>
-            <td>
-                {{ new Date(obat.tgl_prod).toLocaleDateString('id-ID', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        })
-                }}
-            </td>
-            <td>
-                {{ new Date(obat.tgl_exp).toLocaleDateString('id-ID', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })
-                }}
-            </td>
-            <td>
-                {{ new Intl.NumberFormat('id-ID', {style: 'currency', currency: 'IDR'})
-                    .format(obat.harga).replace('.00', '')
-                }}
-            </td>
-        </tr>
-        @endeach
-    </tbody>
-</table>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#obatKadaluarsa">
-    Obat kadaluarsa
-</button>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahObat">
-    Tambah Obat
-</button>
+<div class="row flex-column justify-content-between h-full">
+    <div class="col-12">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                  <th>kode</th>
+                  <th>nama</th>
+                  <th>bentuk</th>
+                  <th>tgl produksi</th>
+                  <th>tgl kadaluarsa</th>
+                  <th>harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                @each(obat in obatTidakKadaluarsa)
+                    @include('obat/list')
+                @else
+                <tr>
+                    <td colspan="6" class="text-center">
+                        Tidak ada obat / semua obat sudah kadaluarsa
+                    </td>
+                </tr>
+                @endeach
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-auto col-12">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#obatKadaluarsa">
+            Obat kadaluarsa
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahObat">
+            Tambah Obat
+        </button>
+    </div>
+</div>
 
 @include('obat/kadaluarsa')
-@include('obat/tambahobat')
+@include('obat/tambah')
 
 @endsection

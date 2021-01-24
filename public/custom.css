@@ -2,3 +2,11 @@ html,
 body {
   height: 100%;
 }
+
+.h-full {
+  height: 100%;
+}
+
+main {
+  height: 100%;
+}

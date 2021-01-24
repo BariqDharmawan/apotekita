@@ -1,0 +1,62 @@
+<div class="modal fade" id="tambahObat" tabindex="-1" 
+aria-labelledby="tambahObatLabel" aria-hidden="true" 
+data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahObatLabel">Tambah Obat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                aria-label="Close"></button>
+            </div>
+        <div class="modal-body">
+            <form action="{{ route('obat.store') }}" method="POST" id="form-tambah-obat">
+                <div class="mb-3">
+                    <label for="addKodeObat" class="form-label">Kode Obat</label>
+                    <input type="code" name="kd_obat" class="form-control" 
+                    id="addKodeObat" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="addNamaObat" class="form-label">Nama Obat</label>
+                    <input type="text" class="form-control" name="nm_obat" id="addNamaObat">
+                </div>
+                <div class="mb-3">
+                    <label for="bentuk_obat" class="form-label">Bentuk Obat</label>
+                    <select class="form-select text-capitalize" name="bentuk_obat" 
+                    id="bentuk_obat">
+                        <option hidden selected>Pilih bentuk obat</option>
+                        <option value="salep">salep</option>
+                        <option value="syrup">syrup</option>
+                        <option value="kaplet">kaplet</option>
+                        <option value="tablet">tablet</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="addTglProduksi" class="control-label">Tanggal Produksi</label>
+                    <input class="form-control" id="date" name="tgl_prod" type="date"/>
+                </div>
+                <div class="mb-3">
+                    <label for="addTglKadaluarsa" class="control-label">Tanggal Kadaluarsa</label>
+                    <input class="form-control" id="date" name="tgl_exp" type="date"/>
+                </div>
+                <div class="mb-3">
+                    <label for="basic-url" class="form-label">Harga Obat</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Rp.</span>
+                        <input type="number" name="harga" class="form-control">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="basic-url" class="form-label">Jumlah persediaan</label>
+                    <input type="number" name="jumlah_persediaan" class="form-control">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button id="cancel" name="cancel" class="btn btn-danger">Batal</button>
+            <button type="submit" class="btn btn-primary" form="form-tambah-obat">
+                Tambah Obat
+            </button>
+        </div>
+        </div>
+    </div>
+</div>

@@ -4,39 +4,27 @@
 @endsection
 @section('content')
 
-<table class="table table-borderless">
-  <thead>
-    <tr>
-      <th scope="col" class="text-center">Kode</th>
-      <th scope="col" class="text-center">Nama</th>
-      <th scope="col" class="text-center">Bentuk</th>
-      <th scope="col" class="text-center">Tgl Produksi</th>
-      <th scope="col" class="text-center">Tgl Kadaluarsa</th>
-      <th scope="col" class="text-center">Harga</th>
-    </tr>
-  </thead>
-  <tbody>
-      @each(obat in obatTidakKadaluarsa)
-      <tr class="text-center">
-        <td>{{ persediaan.kd_obat }}</td>
-        <td>{{ persediaan.nm_obat }}</td>
-        <td>{{ persediaan.bentuk_obat }}</td>
-        <td>{{ persediaan.tgl_prod }}</td>
-        <td>{{ persediaan.tgl_exp }}</td>
-      </tr>
-      @endeach
-  </tbody>
-</table>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+            <th class="text-center">Kode</th>
+            <th class="text-center">Jumlah persediaan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each(persediaan in persediaanObat)
+                <tr>
+                    <td class="text-center">{{ persediaan.obat.kd_obat }}</td>
+                    <td class="text-center">{{ persediaan.jumlah + ' pcs' }}</td>
+                </tr>
+            @else
+                <tr>
+                    <td class="text-center" colspan="2">Tidak ada obat</td>
+                </tr>
+            @endeach
+        </tbody>
+    </table>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#obatKadaluarsa">
-    Obat kadaluarsa
-</button>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahObat">
-    Tambah Obat
-</button>
-
-@include('obat/kadaluarsa')
-@include('obat/tambahobat')
+    @include('persediaan/tambah')
 
 @endsection

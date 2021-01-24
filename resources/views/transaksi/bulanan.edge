@@ -1,0 +1,29 @@
+@layout('layouts/master')
+@section('title-page')
+    Transaksi
+@endsection
+@section('content')
+    <table class="table table-borderless">
+    <thead>
+        <tr>
+        <th scope="col" class="text-center">Kode</th>
+        <th scope="col" class="text-center">Tgl Transaksi</th>
+        <th scope="col" class="text-center">Jumlah</th>
+        </tr>
+    </thead>
+    <tbody>
+        @each(penjualan in filterPenjualan)
+        <tr>
+            <td class="text-center">{{ penjualan.kd_obat }}</td>
+            <td class="text-center">{{ penjualan.waktu_transaksi }}</td>
+            <td class="text-center">{{ penjualan.jumlah_beli }}</td>
+        </tr>
+        @endeach
+    </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahTransaksi">
+        Tambah Transaksi
+    </button>
+    {{--  @include('transaksi/tambahTransaksi')  --}}
+@endsection

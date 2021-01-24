@@ -1,0 +1,51 @@
+<div class="mt-auto col-12">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+    data-bs-target="#modalTambahPersediaan">
+        Tambah Persediaan
+    </button>
+</div>
+<div class="modal fade" id="modalTambahPersediaan" tabindex="-1" tabindex="-1"
+aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Tambah persediaan obat
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if(namaSemuaObat.length > 0)
+                    <form action="{{ route('persediaan_obat.store') }}" method="POST"
+                    id="form-tambah-transaksi">
+                        <select name="kd_obat">
+                            @each(obat in namaSemuaObat)
+                                <option value="{{ obat.kd_obat }}">
+                                    {{ obat.kd_obat  }}
+                                </option>
+                            @endeach
+                        </select>
+                        <input type="number" name="jumlah_persediaan" min=""
+                        placeholder="jumlah persediaan" required>
+                        <button type="submit">tambah persediaan</button>
+                    </form>
+                @else
+                    <h4>
+                        Tidak ada obat yg bisa ditambah 
+                        persediaannya krn semua obat kadaluarsa
+                    </h4>
+                @endif
+            </div>
+            @if(namaSemuaObat.length > 0)
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" 
+                data-bs-dismiss="modal" aria-label="Close">Batal</button>
+                <button type="submit" class="btn btn-primary" form="form-tambah-transaksi">
+                    Tambah transaksi baru
+                </button>
+            </div>
+            @endif
+        </div>
+    </div>
+</div>

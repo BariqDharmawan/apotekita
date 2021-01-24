@@ -1,0 +1,33 @@
+<tr>
+    <td>{{ obat.kd_obat }}</td>
+    <td>{{ obat.nm_obat }}</td>
+    <td>{{ obat.bentuk_obat }}</td>
+    <td>
+        {{
+            new Date(obat.tgl_prod).toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })
+        }}
+    </td>
+    <td>
+        {{
+            new Date(obat.tgl_exp).toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })
+        }}
+    </td>
+    <td>
+        {{
+            new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(obat.harga).replace('.00', '')
+        }}
+    </td>
+</tr>

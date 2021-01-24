@@ -14,20 +14,44 @@
     <tbody>
         @each(penjualan in daftarPenjualan)
         <tr>
-            <td class="text-center">{{ penjualan.kd_obat }}</td>
-            <td class="text-center">{{ penjualan.waktu_transaksi }}</td>
+            <td class="text-center">{{ penjualan.kode }}</td>
+            <td class="text-center">
+                {{
+                    new Date(penjualan.waktu_transaksi).toLocaleDateString('id-ID', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })
+                }}
+            </td>
             <td class="text-center">{{ penjualan.jumlah_beli }}</td>
         </tr>
         @endeach
     </tbody>
     </table>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahTransaksi">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahTransaksi">
         Tambah Transaksi
     </button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transaksiBulanan">
-        Transaksi Bulanan
-    </button>
-    @include('transaksi/tambahTransaksi')
-    @include('transaksi/transaksiBulanan')
+    @include('transaksi/tambah')
+    <div class="btn-group dropup">
+        <button type="button" class="btn btn-secondary dropdown-toggle" 
+        data-bs-toggle="dropdown" aria-expanded="false">
+            Transaksi Bulanan
+        </button>
+        <ul class="dropdown-menu">
+            @each((bulan, key) in listMonth)
+                <li>
+                    <a href="{{ route('filter-bulan', { params: { bulan: bulan } }) }}"
+                    class="dropdown-item">
+                        Transaksi {{ listMontName[key] }} 
+                    </a>
+                    <button type="button" class="dropdown-item" 
+                    data-bs-toggle="modal" data-bs-target="#transaksi{{ bulan }}">
+                        
+                    </button>
+                </li>
+            @endeach
+        </ul>
+    </div>
 @endsection
