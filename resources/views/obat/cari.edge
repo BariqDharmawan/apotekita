@@ -19,18 +19,16 @@
     <tbody>
         @each(obat in cariObat)
             @include('obat/list')
+        @else
+        <tr>
+            <td colspan="6">obat yang kamu cari tidak ada</td>
+        </tr>
         @endeach
     </tbody>
-    <tfoot>
-        <tr>
-            <td>
-                <a href="{{ route('obat.index') }}" class="btn btn-primary">back to manage obat</a>
-            </td>
-        </tr>
-    </tfoot>
 </table>
 
 @include('obat/kadaluarsa')
 @include('obat/tambah')
+<a href="{{ route('obat.index') }}" class="btn btn-primary">Ke halaman manage obat</a>
 
 @endsection

@@ -13,14 +13,20 @@
         }}
     </td>
     <td>
-        {{
-            new Date(obat.tgl_exp).toLocaleDateString('id-ID', {
+        @set('tglExp', new Date(obat.tgl_exp).toLocaleDateString('id-ID', {
                 weekday: 'long',
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
             })
-        }}
+        )
+        @if(obat.tgl_exp < new Date())
+            <span class="badge bg-danger">
+                {{ tglExp }}
+            </span>
+        @else
+        {{ tglExp }}
+        @endif
     </td>
     <td>
         {{

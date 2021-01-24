@@ -4,39 +4,42 @@
 @endsection
 @section('content')
     <table class="table table-borderless">
-    <thead>
-        <tr>
-        <th scope="col" class="text-center">Kode</th>
-        <th scope="col" class="text-center">Tgl Transaksi</th>
-        <th scope="col" class="text-center">Jumlah</th>
-        </tr>
-    </thead>
-    <tbody>
-        @each(penjualan in daftarPenjualan)
-        <tr>
-            <td class="text-center">{{ penjualan.kode }}</td>
-            <td class="text-center">
-                {{
-                    new Date(penjualan.waktu_transaksi).toLocaleDateString('id-ID', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })
-                }}
-            </td>
-            <td class="text-center">{{ penjualan.jumlah_beli }}</td>
-        </tr>
-        @else
-        <tr>
-            <td colspan="3" class="text-center">Tidak ada transaksi</td>
-        </tr>
-        @endeach
-    </tbody>
+        <thead>
+            <tr>
+                <th>Kode Transaksi</th>
+                <th>Kode obat</th>
+                <th>Tgl Transaksi</th>
+                <th>Jumlah</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each(penjualan in daftarPenjualan)
+            <tr>
+                <td>{{ penjualan.kode }}</td>
+                <td>{{ penjualan.obat.kd_obat }}</td>
+                <td>
+                    {{
+                        new Date(penjualan.waktu_transaksi).toLocaleDateString('id-ID', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })
+                    }}
+                </td>
+                <td>{{ penjualan.jumlah_beli + ' pcs' }}</td>
+            </tr>
+            @else
+            <tr>
+                <td colspan="3">Tidak ada transaksi</td>
+            </tr>
+            @endeach
+        </tbody>
     </table>
 
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahTransaksi">
         Tambah Transaksi
     </button>
+    
     @include('transaksi/tambah')
     <div class="btn-group dropend">
         <button type="button" class="btn btn-secondary dropdown-toggle" 
