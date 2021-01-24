@@ -19,10 +19,13 @@
                 memenuhi tugas akhir praktikum database
                 lanjut.
             </p>
-            <form action="{{ Route.makeUrl('obat.show', 'obat') }}" method="get" class="mt-auto">
-                <div class="mb-3">
-                    <input type="search" class="form-control" id="cari-obat" 
-                    name="obat" placeholder="Cari berdasarkan nama atau kode obat...">
+            <form action="/obat/cari" method="get" class="mt-auto">
+                <div class="row align-items-center">
+                    <div class="col-10">
+                        <input type="search" class="form-control" id="cari-obat" 
+                        name="obat" placeholder="Cari berdasarkan nama atau kode obat...">
+                    </div>
+                    <button type="submit" class="btn btn-primary col-auto">cari</button>
                 </div>
             </form>
         </div>

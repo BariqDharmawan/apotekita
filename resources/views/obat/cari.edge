@@ -1,0 +1,36 @@
+@layout('layouts/master')
+@section('title-page')
+    Cari obat
+@endsection
+@section('content')
+
+<h1 class="h3 mb-5">Hasil cari dari: {{ query }}</h1>
+<table class="table table-borderless">
+    <thead>
+        <tr>
+          <th>kode</th>
+          <th>nama</th>
+          <th>bentuk</th>
+          <th>tgl produksi</th>
+          <th>tgl kadaluarsa</th>
+          <th>harga</th>
+        </tr>
+    </thead>
+    <tbody>
+        @each(obat in cariObat)
+            @include('obat/list')
+        @endeach
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <a href="{{ route('obat.index') }}" class="btn btn-primary">back to manage obat</a>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@include('obat/kadaluarsa')
+@include('obat/tambah')
+
+@endsection
