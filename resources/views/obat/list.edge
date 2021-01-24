@@ -27,11 +27,6 @@
         @endif
     </td>
     <td>
-        {{
-            new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR'
-            }).format(obat.harga)
-        }}
+        {{ 'Rp. ' + obat.harga }}
     </td>
 </tr>
