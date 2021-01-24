@@ -8,7 +8,7 @@ import { DateTime, Info } from 'luxon'
 export default class PenjualanController {
 
     public async index({ view, response }: HttpContextContract) {
-        const daftarPenjualan = await Penjualan.all(),
+        const daftarPenjualan = await Penjualan.query().preload('obat'),
             listMonth = Info.months('2-digit'),
             listMontName = Info.months('long'),
             listObat = await Obat.query().preload('persediaan')
@@ -24,7 +24,6 @@ export default class PenjualanController {
             'kd_obat', request.input('kd_obat')
         )
         await obat.preload('persediaan')
-        response.json(obat)
 
         await request.validate({
             schema: schema.create({
@@ -56,36 +55,7 @@ export default class PenjualanController {
         updatePersediaan.jumlah = updatePersediaan.jumlah - jumlah_beli
         await updatePersediaan.save()
 
-        // response.json([tambahPenjualan, updatePersediaan])
         response.redirect().back()
-    }
-
-    public async update({ request, response, params }: HttpContextContract) {
-
-        await request.validate({
-            schema: schema.create({
-                kode: schema.string({}, [
-                    rules.maxLength(25),
-                ]),
-                tgl_transaksi: schema.date(),
-                jumlah_beli: schema.number([
-                    rules.range(0, jumlahPersediaan.jumlah)
-                ]),
-                kd_obat: schema.string({}, [
-                    rules.exists({ table: 'obat', column: 'kd_obat' })
-                ])
-            }),
-            reporter: validator.reporters.jsonapi
-        })
-
-        const tambahPenjualan = await Penjualan.findOrFail(params.id)
-        tambahPenjualan.waktu_transaksi = request.input('tgl_transaksi')
-        tambahPenjualan.jumlah_beli = Number(request.input('jumlah_beli'))
-        tambahPenjualan.obatId = request.input('kd_obat')
-        await tambahPenjualan.save()
-
-        response.json(tambahPenjualan)
-
     }
 
     public async filterBulan({ view, params, response }: HttpContextContract) {

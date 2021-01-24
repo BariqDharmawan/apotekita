@@ -11,7 +11,6 @@ export default class ObatController {
             .where('tgl_exp', '>', new Date().toISOString())
         const obatKadaluarsa = await Obat.query().where('tgl_exp', '<', new Date().toISOString())
 
-        // response.json([obatTidakKadaluarsa, obatKadaluarsa])
         return view.render('obat/index', { obatKadaluarsa, obatTidakKadaluarsa })
     }
 
@@ -24,7 +23,7 @@ export default class ObatController {
                     rules.required(),
                     rules.maxLength(25),
                 ]),
-                nm_obat: schema.string({}, [
+                nm_obat: schema.string({ trim: true }, [
                     rules.required(),
                     rules.maxLength(25),
                 ]),
@@ -60,18 +59,13 @@ export default class ObatController {
         tambahObat.tgl_prod = request.input('tgl_prod')
         tambahObat.tgl_exp = request.input('tgl_exp')
         tambahObat.harga = request.input('harga')
-        // await tambahObat.save()
 
-        // const insertedObat = await Obat.findOrFail(tambahObat.id)
-        // response.json(insertedObat)
 
         const tambahPersediaan = new Persediaan()
         tambahPersediaan.jumlah = request.input('jumlah_persediaan')
-        // tambahPersediaan.obatId = insertedObat.id
         await tambahObat.related('persediaan').save(tambahPersediaan)
 
-        response.json([tambahObat, tambahPersediaan])
-        // response.redirect().back()
+        response.redirect().back()
     }
 
     public async edit({ view, params }: HttpContextContract) {
@@ -85,7 +79,7 @@ export default class ObatController {
     public async show({ view, request }: HttpContextContract) {
         const query = request.input('obat')
         const cariObat = await Obat.query().preload('persediaan')
-            .where('kd_obat', query)
+            .where('kd_obat', 'LIKE', '%' + query + '%')
             .orWhere('nm_obat', 'LIKE', '%' + query + '%')
 
         return view.render('obat/cari', { cariObat, query })
@@ -95,7 +89,6 @@ export default class ObatController {
         const hapusObat = await Obat.findByOrFail('kd_obat', params.id)
         await hapusObat.delete()
 
-        // response.json(`berhasil hapus obat dengan kode ${params.id}`)
         response.redirect().back()
     }
 
