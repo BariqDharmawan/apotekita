@@ -10,8 +10,11 @@ export default class ObatController {
 
         const obatTidakKadaluarsa = await Obat.query()
             .where('tgl_exp', '>', new Date().toISOString()).preload('persediaan')
-        const obatKadaluarsa = await Obat.query().where('tgl_exp', '<', new Date().toISOString())
-        const logObat = await LogObat.query().preload('obat')
+        const obatKadaluarsa = await Obat.query()
+            .where('tgl_exp', '<', new Date().toISOString()).preload('persediaan')
+        const logObat = await LogObat.query().preload('obat', (query) => {
+            query.preload('persediaan')
+        })
 
         return view.render('obat/index', { obatKadaluarsa, obatTidakKadaluarsa, logObat })
     }
@@ -60,9 +63,8 @@ export default class ObatController {
         tambahObat.tgl_exp = request.input('tgl_exp')
         tambahObat.harga = request.input('harga')
 
-
         const tambahPersediaan = new Persediaan()
-        tambahPersediaan.jumlah = request.input('jumlah_persediaan')
+        tambahPersediaan.jumlah_lama = request.input('jumlah_persediaan')
         await tambahObat.related('persediaan').save(tambahPersediaan)
 
         response.redirect().toRoute('obat.index')

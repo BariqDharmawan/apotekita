@@ -6,7 +6,8 @@ export default class Persediaans extends BaseSchema {
     public async up() {
         this.schema.createTable(this.tableName, (table) => {
             table.increments('id').primary()
-            table.bigInteger('jumlah').notNullable()
+            table.integer('jumlah_lama').notNullable()
+            table.integer('jumlah_baru').nullable()
             table.integer('obat_id').notNullable()
             table.timestamps()
         })

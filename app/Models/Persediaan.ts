@@ -11,7 +11,10 @@ export default class Persediaan extends BaseModel {
     public id: number
 
     @column()
-    public jumlah: number
+    public jumlah_baru: number
+
+    @column()
+    public jumlah_lama: number
 
     @column()
     public obat_id: number

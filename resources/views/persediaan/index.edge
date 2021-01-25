@@ -16,7 +16,13 @@
             @each(persediaan in persediaanObat)
                 <tr>
                     <td>{{ persediaan.obat.kd_obat }}</td>
-                    <td>{{ persediaan.jumlah + ' pcs' }}</td>
+                    <td>
+                        @if(persediaan.jumlah_baru === null)
+                            {{ persediaan.jumlah_lama + ' pcs' }}
+                        @else
+                            {{ persediaan.jumlah_baru + ' pcs' }}
+                        @endif
+                    </td>
                     <td>
                         @if(persediaan.obat.tgl_exp < new Date())
                             <span class="badge bg-danger">Sudah</span>
