@@ -55,6 +55,8 @@ export default class ObatController {
             reporter: validator.reporters.jsonapi
         })
 
+        const jumlahPersediaan = request.input('jumlah_persediaan')
+
         const tambahObat = new Obat()
         tambahObat.kd_obat = request.input('kd_obat')
         tambahObat.nm_obat = request.input('nm_obat')
@@ -64,7 +66,8 @@ export default class ObatController {
         tambahObat.harga = request.input('harga')
 
         const tambahPersediaan = new Persediaan()
-        tambahPersediaan.jumlah_lama = request.input('jumlah_persediaan')
+        tambahPersediaan.jumlah_baru = jumlahPersediaan
+        tambahPersediaan.jumlah_lama = jumlahPersediaan
         await tambahObat.related('persediaan').save(tambahPersediaan)
 
         response.redirect().toRoute('obat.index')

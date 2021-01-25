@@ -4,104 +4,104 @@
 
 <div class="modal fade" id="logObat" tabindex="-1" 
 aria-labelledby="logObatLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="logObatLabel">Log Obat</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th scope="col">Kode Obat</th>
-                    <th scope="col">Nama Obat</th>
-                    <th scope="col">Bentuk Obat</th>
-                    <th scope="col">Harga Obat</th>
-                    <th>Jumlah Obat</th>
-                    <th>Waktu perubahan</th>
-                </tr>
-            </thead>
-            <tbody>
-                @each((logObat, index) in logObat)
-                <tr>
-                    <td>{{ (index + 1) }}</td>
-                    <td>
-                        <span class="d-block">
-                            Kode lama: {{ logObat.obat.kd_obat }}
-                        </span>
-                        <span class="d-block">
-                            Kode baru: {{{ logObat.kd_obat_baru || 
-                                '<span class="badge bg-info">tidak berubah</span>' 
-                            }}}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="d-block">
-                            Nama lama: {{ logObat.obat.nm_obat }}
-                        </span>
-                        <span class="d-block">
-                            Nama baru: {{{ logObat.nm_obat_baru || '<span class="badge bg-info">tidak berubah</span>' }}}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="d-block">
-                            Bentuk lama: {{ logObat.obat.bentuk_obat }}
-                        </span>
-                        <span class="d-block">
-                            Bentuk baru: 
-                            {{{ logObat.bentuk_obat_baru || '<span class="badge bg-info">tidak berubah</span>' }}}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="d-block">
-                            Harga lama: {{ logObat.obat.harga }}
-                        </span>
-                        <span class="d-block">   
-                            Harga baru: {{{
-                                new Intl.NumberFormat('id-ID', {
-                                    style: 'currency',
-                                    currency: 'IDR'
-                                }).format(logObat.harga_baru) || 
-                                '<span class="badge bg-info">tidak berubah</span>'
-                            }}}
-                        </span>
-                    </td>
-                    <td>
-                        @if(logObat.obat.persediaan.jumlah_baru === null)
-                        <span class="d-block">
-                            Jumlah saat ini: {{ logObat.obat.persediaan.jumlah_lama }}
-                        </span>
-                        @else
-                        <span class="d-block">
-                            Jumlah lama: {{ logObat.obat.persediaan.jumlah_lama }}
-                        </span>
-                        <span class="d-block">
-                            Jumlah baru: {{{
-                                logObat.obat.persediaan.jumlah_baru || 
-                                '<span class="badge bg-info">tidak berubah</span>'
-                            }}}
-                        </span>
-                        @endif
-                    </td>
-                    <td>
-                        <time datetime="{{ logObat.createdAt }}">
-                            {{ new Date(logObat.createdAt).toLocaleString() }}
-                        </time>
-                    </td>
-                </tr>
-                @else
-                <tr>
-                    <td colspan="6" class="text-center">
-                        Tidak ada perubahan pada salah satu detail obat
-                    </td>
-                </tr>
-                @endeach
-            </tbody>
-          </table>
-      </div>
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logObatLabel">Log Obat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th scope="col">Kode Obat</th>
+                            <th scope="col">Nama Obat</th>
+                            <th scope="col">Bentuk Obat</th>
+                            <th scope="col">Harga Obat</th>
+                            <th>Jumlah Obat</th>
+                            <th>Waktu perubahan</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    @each((logObat, index) in logObat)
+                    <tr>
+                        <td>{{ (index + 1) }}</td>
+                        <td>
+                            <span class="d-block">
+                                Kode lama: {{ logObat.obat.kd_obat }}
+                            </span>
+                            <span class="d-block">
+                                Kode baru: {{{ logObat.kd_obat_baru || 
+                                    '<span class="badge bg-info">tidak berubah</span>' 
+                                }}}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="d-block">
+                                Nama lama: {{ logObat.obat.nm_obat }}
+                            </span>
+                            <span class="d-block">
+                                Nama baru: {{{ logObat.nm_obat_baru || '<span class="badge bg-info">tidak berubah</span>' }}}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="d-block">
+                                Bentuk lama: {{ logObat.obat.bentuk_obat }}
+                            </span>
+                            <span class="d-block">
+                                Bentuk baru: 
+                                {{{ logObat.bentuk_obat_baru || '<span class="badge bg-info">tidak berubah</span>' }}}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="d-block">
+                                Harga lama: {{ logObat.obat.harga }}
+                            </span>
+                            <span class="d-block">   
+                                Harga baru: {{{
+                                    new Intl.NumberFormat('id-ID', {
+                                        style: 'currency',
+                                        currency: 'IDR'
+                                    }).format(logObat.harga_baru) || 
+                                    '<span class="badge bg-info">tidak berubah</span>'
+                                }}}
+                            </span>
+                        </td>
+                        <td>
+                            @if(logObat.obat.persediaan.jumlah_baru === null)
+                            <span class="d-block">
+                                Jumlah saat ini: {{ logObat.obat.persediaan.jumlah_lama }}
+                            </span>
+                            @else
+                            <span class="d-block">
+                                Jumlah lama: {{ logObat.obat.persediaan.jumlah_lama }}
+                            </span>
+                            <span class="d-block">
+                                Jumlah baru: {{{
+                                    logObat.obat.persediaan.jumlah_baru || 
+                                    '<span class="badge bg-info">tidak berubah</span>'
+                                }}}
+                            </span>
+                            @endif
+                        </td>
+                        <td>
+                            <time datetime="{{ logObat.createdAt }}">
+                                {{ new Date(logObat.createdAt).toLocaleString() }}
+                            </time>
+                        </td>
+                    </tr>
+                    @else
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            Tidak ada perubahan pada salah satu detail obat
+                        </td>
+                    </tr>
+                    @endeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

@@ -52,7 +52,7 @@ export default class PenjualanController {
         await tambahPenjualan.save()
 
         const updatePersediaan = await Persediaan.findByOrFail('obat_id', obat.id)
-        updatePersediaan.jumlah = updatePersediaan.jumlah - jumlah_beli
+        updatePersediaan.jumlah_baru = updatePersediaan.jumlah_baru - jumlah_beli
         await updatePersediaan.save()
 
         response.redirect().back()
