@@ -3,6 +3,9 @@ import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Obat from './Obat'
 
 export default class LogObat extends BaseModel {
+
+    public static table = 'log_obat'
+
     @column({ isPrimary: true })
     public id: number
 

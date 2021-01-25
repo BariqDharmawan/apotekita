@@ -120,22 +120,22 @@ export default class ObatController {
             reporter: validator.reporters.jsonapi
         })
 
-        const obat = await Obat.findOrFail(params.id)
-        const kdObatLama = obat.kd_obat,
-            nmObatLama = obat.nm_obat,
-            bentukLama = obat.bentuk_obat,
-            hargaLama = obat.harga
+        const obatLama = await Obat.findOrFail(params.id)
+        const kdObatLama = obatLama.kd_obat,
+            nmObatLama = obatLama.nm_obat,
+            bentukLama = obatLama.bentuk_obat,
+            hargaLama = obatLama.harga
 
         const kdObatBaru = request.input('kd_obat'),
             nmObatBaru = request.input('nm_obat'),
             bentukBaru = request.input('bentuk_obat'),
             hargaBaru = request.input('harga')
 
-        obat.kd_obat = kdObatBaru
-        obat.nm_obat = nmObatBaru
-        obat.bentuk_obat = bentukBaru
-        obat.harga = hargaBaru
-        obat.save()
+        obatLama.kd_obat = kdObatBaru
+        obatLama.nm_obat = nmObatBaru
+        obatLama.bentuk_obat = bentukBaru
+        obatLama.harga = hargaBaru
+        await obatLama.save()
 
         const logObat = new LogObat()
         if (kdObatLama !== kdObatBaru) {
@@ -150,7 +150,8 @@ export default class ObatController {
         if (hargaLama !== hargaBaru) {
             logObat.harga_baru = hargaBaru
         }
-        logObat.save()
+        logObat.obat_id = obatLama.id
+        await logObat.save()
 
 
     }

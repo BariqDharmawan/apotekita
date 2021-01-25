@@ -19,36 +19,42 @@ if (formTambahTransaksi) {
 }
 
 
-var modalEditObat = document.getElementById('modalEditObat')
-modalEditObat.addEventListener('show.bs.modal', function (event) {
-    // Button that triggered the modal
-    var button = event.relatedTarget
-    // Extract info from data-bs-* attributes
-    var nama = button.getAttribute('data-nama')
-    var kode = button.getAttribute('data-kode')
-    var bentuk = button.getAttribute('data-bentuk')
-    var tglProd = button.getAttribute('data-prod')
-    var tglExp = button.getAttribute('data-exp')
-    var harga = button.getAttribute('data-harga')
-    var jumlah = button.getAttribute('data-jumlah')
-    
-    // Update the modal's content.
-    var modalTitle = modalEditObat.querySelector('.modal-title')
-    var inputKode = modalEditObat.querySelector('#kode-obat')
-    var inputNama = modalEditObat.querySelector('#nama-obat')
-    var inputBentuk = modalEditObat.querySelector('#bentuk-obat')
-    var inputProd = modalEditObat.querySelector('#tgl-prod')
-    var inputExp = modalEditObat.querySelector('#tgl-exp')
-    var inputHarga = modalEditObat.querySelector('#harga')
-    var inputJumlah = modalEditObat.querySelector('#jumlah-persediaan')
+const formEditObat = document.querySelector('#form-update-obat')
+if (formEditObat) {
+    var modalEditObat = document.getElementById('modalEditObat')
+    modalEditObat.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var nama = button.getAttribute('data-nama')
+        var kode = button.getAttribute('data-kode')
+        var bentuk = button.getAttribute('data-bentuk')
+        var tglProd = button.getAttribute('data-prod')
+        var tglExp = button.getAttribute('data-exp')
+        var harga = button.getAttribute('data-harga')
+        var jumlah = button.getAttribute('data-jumlah')
+        const formUrl = button.getAttribute('data-url')
 
-    modalTitle.innerHTML = `Edit obat <b>${nama}</b>`
-    inputKode.value = kode
-    inputNama.value = nama
-    inputBentuk.value = bentuk
-    inputProd.value = tglProd
-    inputExp.value = tglExp
-    inputHarga.value = harga
-    inputJumlah.value = jumlah
+        // Update the modal's content.
+        var modalTitle = modalEditObat.querySelector('.modal-title')
+        var inputKode = modalEditObat.querySelector('#kode-obat')
+        var inputNama = modalEditObat.querySelector('#nama-obat')
+        var inputBentuk = modalEditObat.querySelector('#bentuk-obat')
+        var inputProd = modalEditObat.querySelector('#tgl-prod')
+        var inputExp = modalEditObat.querySelector('#tgl-exp')
+        var inputHarga = modalEditObat.querySelector('#harga')
+        var inputJumlah = modalEditObat.querySelector('#jumlah-persediaan')
 
-})
+        modalTitle.innerHTML = `Edit obat <b>${nama}</b>`
+        inputKode.value = kode
+        inputNama.value = nama
+        inputBentuk.value = bentuk
+        inputProd.value = tglProd
+        inputExp.value = tglExp
+        inputHarga.value = harga
+        inputJumlah.value = jumlah
+
+        formEditObat.action = formUrl
+
+    })   
+}
