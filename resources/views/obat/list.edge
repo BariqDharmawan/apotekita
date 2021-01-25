@@ -34,4 +34,22 @@
             }).format(obat.harga)
         }}
     </td>
+    <td>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#modalEditObat" 
+        data-nama="{{ obat.nm_obat }}" 
+        data-kode="{{ obat.kd_obat }}"
+        data-bentuk="{{ obat.bentuk_obat }}"
+        data-prod="{{ new Date(obat.tgl_prod).toISOString().slice(0, 10) }}"
+        data-exp="{{ new Date(obat.tgl_exp).toISOString().slice(0, 10) }}"
+        data-harga="{{ obat.harga }}"
+        data-jumlah="{{ obat.persediaan.jumlah }}"
+        data-url="{{ route('obat.update', {params: {id: obat.id}}) }}">
+            edit detail
+        </button>
+        <a href="{{ route('obat.destroy', {params: {kode: obat.kd_obat}}) }}" 
+        class="btn btn-danger">
+            hapus
+        </a>
+    </td>
 </tr>

@@ -10,6 +10,7 @@
                 <th>Kode obat</th>
                 <th>Tgl Transaksi</th>
                 <th>Jumlah</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -27,10 +28,13 @@
                     }}
                 </td>
                 <td>{{ penjualan.jumlah_beli + ' pcs' }}</td>
+                <td>
+                    
+                </td>
             </tr>
             @else
             <tr>
-                <td colspan="3">Tidak ada transaksi</td>
+                <td colspan="5">Tidak ada transaksi</td>
             </tr>
             @endeach
         </tbody>

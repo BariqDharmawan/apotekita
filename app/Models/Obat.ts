@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import {
+    afterSave, BaseModel, column, HasMany, hasMany, hasOne, HasOne
+} from '@ioc:Adonis/Lucid/Orm'
 import Persediaan from './Persediaan'
 import Penjualan from './Penjualan'
 

@@ -1,0 +1,51 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logObat">
+    Lihat log obat
+</button>
+
+<div class="modal fade" id="logObat" tabindex="-1" 
+aria-labelledby="logObatLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logObatLabel">Log Obat</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Kode Baru</th>
+                <th scope="col">Nama Baru</th>
+                <th scope="col">Bentuk Baru</th>
+                <th scope="col">Harga Baru</th>
+              </tr>
+            </thead>
+            <tbody>
+                @each(obat in logObat)
+                <tr>
+                    <td>{{ obat.kd_obat_baru }}</td>
+                    <td>{{ obat.nm_obat_baru }}</td>
+                    <td>{{ obat.bentuk_obat_baru }}</td>
+                    <td>
+                        {{
+                            new Intl.NumberFormat('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }).format(obat.harga_baru)
+                        }}
+                    </td>
+                </tr>
+                @else
+                <tr>
+                    <td colspan="6" class="text-center">
+                        Tidak ada perubahan pada salah satu detail obat
+                    </td>
+                </tr>
+                @endeach
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>

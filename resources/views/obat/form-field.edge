@@ -1,0 +1,39 @@
+<div class="mb-3">
+    <label for="kode-obat" class="form-label">Kode Obat</label>
+    <input type="code" name="kd_obat" class="form-control" id="kode-obat">
+</div>
+<div class="mb-3">
+    <label for="nama-obat" class="form-label">Nama Obat</label>
+    <input type="text" class="form-control" name="nm_obat" id="nama-obat">
+</div>
+<div class="mb-3">
+    <label for="bentuk-obat" class="form-label">Bentuk Obat</label>
+    <select class="form-select text-capitalize" name="bentuk_obat" 
+    id="bentuk-obat">
+        <option hidden selected>Pilih bentuk obat</option>
+        <option value="salep">salep</option>
+        <option value="syrup">syrup</option>
+        <option value="kaplet">kaplet</option>
+        <option value="tablet">tablet</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="tgl-prod" class="control-label">Tanggal Produksi</label>
+    <input class="form-control" id="tgl-prod" name="tgl_prod" type="date"/>
+</div>
+<div class="mb-3">
+    <label for="tgl-exp" class="control-label">Tanggal Kadaluarsa</label>
+    <input class="form-control" id="tgl-exp" name="tgl_exp" type="date"/>
+</div>
+<div class="mb-3">
+    <label for="basic-url" class="form-label">Harga Obat</label>
+    <div class="input-group">
+        <span class="input-group-text">Rp.</span>
+        <input type="number" name="harga" min="1000" id="harga"
+        max="99999999" class="form-control">
+    </div>
+</div>
+<div class="mb-3">
+    <label for="jumlah-persediaan" class="form-label">Jumlah persediaan</label>
+    <input type="number" id="jumlah-persediaan" name="jumlah_persediaan" class="form-control">
+</div>

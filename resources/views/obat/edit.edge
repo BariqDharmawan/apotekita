@@ -1,0 +1,26 @@
+<div class="modal fade" id="modalEditObat" tabindex="-1" tabindex="-1"
+aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Edit obat
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form-update-obat">
+                    @include('obat.form-field')
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" 
+                data-bs-dismiss="modal" aria-label="Close">Batal</button>
+                <button type="submit" class="btn btn-primary" form="form-update-obat">
+                    update detail obat
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
