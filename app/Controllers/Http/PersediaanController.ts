@@ -44,7 +44,6 @@ export default class PersediaanController {
             { obat_id: obatId },
             {
                 jumlah_lama: jumlahSaatIni,
-                jumlah_baru: jumlahSaatIni + tambahJumlah
             }
         )
 

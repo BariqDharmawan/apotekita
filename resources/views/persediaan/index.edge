@@ -18,10 +18,11 @@
                     <td>{{ persediaan.obat.kd_obat }}</td>
                     <td>
                         @if(persediaan.jumlah_baru === null)
-                            {{ persediaan.jumlah_lama + ' pcs' }}
+                            {{ persediaan.jumlah_lama }}
                         @else
-                            {{ persediaan.jumlah_baru + ' pcs' }}
+                            {{ persediaan.jumlah_baru }}
                         @endif
+                        pcs
                     </td>
                     <td>
                         @if(persediaan.obat.tgl_exp < new Date())

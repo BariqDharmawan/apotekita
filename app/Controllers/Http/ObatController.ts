@@ -66,7 +66,6 @@ export default class ObatController {
         tambahObat.harga = request.input('harga')
 
         const tambahPersediaan = new Persediaan()
-        tambahPersediaan.jumlah_baru = jumlahPersediaan
         tambahPersediaan.jumlah_lama = jumlahPersediaan
         await tambahObat.related('persediaan').save(tambahPersediaan)
 
@@ -120,38 +119,46 @@ export default class ObatController {
             reporter: validator.reporters.jsonapi
         })
 
-        const obatLama = await Obat.findOrFail(params.id)
-        const kdObatLama = obatLama.kd_obat,
-            nmObatLama = obatLama.nm_obat,
-            bentukLama = obatLama.bentuk_obat,
-            hargaLama = obatLama.harga
+        const obat = await Obat.findOrFail(params.id)
+        const kdObatLama = obat.kd_obat,
+            nmObatLama = obat.nm_obat,
+            bentukLama = obat.bentuk_obat,
+            hargaLama = obat.harga
 
         const kdObatBaru = request.input('kd_obat'),
             nmObatBaru = request.input('nm_obat'),
             bentukBaru = request.input('bentuk_obat'),
-            hargaBaru = request.input('harga')
-
-        obatLama.kd_obat = kdObatBaru
-        obatLama.nm_obat = nmObatBaru
-        obatLama.bentuk_obat = bentukBaru
-        obatLama.harga = hargaBaru
-        await obatLama.save()
+            hargaBaru = Number(request.input('harga'))
 
         const logObat = new LogObat()
         if (kdObatLama !== kdObatBaru) {
+            obat.kd_obat = kdObatBaru
+
+            logObat.kd_obat_lama = kdObatLama
             logObat.kd_obat_baru = kdObatBaru
         }
         if (nmObatLama !== nmObatBaru) {
+            obat.nm_obat = nmObatBaru
+
+            logObat.nm_obat_lama = nmObatLama
             logObat.nm_obat_baru = nmObatBaru
         }
         if (bentukLama !== bentukBaru) {
+            obat.bentuk_obat = bentukBaru
+
+            logObat.bentuk_obat_lama = bentukLama
             logObat.bentuk_obat_baru = bentukBaru
         }
         if (hargaLama !== hargaBaru) {
+            obat.harga = hargaBaru
+
+            logObat.harga_lama = hargaLama
             logObat.harga_baru = hargaBaru
         }
-        logObat.obat_id = obatLama.id
+
+        logObat.obat_id = obat.id
         await logObat.save()
+        await obat.save()
 
         response.redirect().back()
 
@@ -159,8 +166,11 @@ export default class ObatController {
     }
 
     public async destroy({ response, params }: HttpContextContract) {
-        const hapusObat = await Obat.findByOrFail('kd_obat', params.kode)
-        await hapusObat.delete()
+        const obat = await Obat.findByOrFail('kd_obat', params.kode)
+
+        await LogObat.query().where('obat_id', obat.id).delete()
+        await Persediaan.query().where('obat_id', obat.id).delete()
+        await obat.delete()
 
         response.redirect().back()
     }

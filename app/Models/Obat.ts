@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon'
 import {
-    afterSave, BaseModel, column, HasMany, hasMany, hasOne, HasOne
+    BaseModel, column, HasMany, hasMany, hasOne, HasOne
 } from '@ioc:Adonis/Lucid/Orm'
 import Persediaan from './Persediaan'
 import Penjualan from './Penjualan'
+import LogObat from './LogObat'
 
 export default class Obat extends BaseModel {
 
@@ -40,6 +41,11 @@ export default class Obat extends BaseModel {
         foreignKey: 'obat_id'
     })
     public persediaan: HasOne<typeof Persediaan>
+
+    @hasOne(() => LogObat, {
+        foreignKey: 'obat_id'
+    })
+    public logObat: HasOne<typeof LogObat>
 
     @hasMany(() => Penjualan)
     public penjualan: HasMany<typeof Penjualan>
