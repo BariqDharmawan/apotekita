@@ -9,7 +9,7 @@ Route.group(() => {
     Route.get('delete/:kode', 'ObatController.destroy').as('obat.destroy')
     Route.get('edit', 'ObatController.edit').as('obat.edit')
     Route.post('update/:id', 'ObatController.update').as('obat.update')
-    Route.get('cari/:id', 'ObatController.show').as('obat.show')
+    Route.get('cari', 'ObatController.show').as('obat.show')
 }).prefix('obat')
 
 Route.resource('penjualan', 'PenjualanController').only(['index', 'store', 'edit'])

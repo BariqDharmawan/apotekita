@@ -112,11 +112,6 @@ export default class ObatController {
                     rules.required(),
                     rules.unsigned(),
                 ]),
-                jumlah_persediaan: schema.number([
-                    rules.required(),
-                    rules.unsigned(),
-                    rules.range(1, 9999)
-                ])
             }),
             messages: {
                 'nm_obat.alpha': 'Nama obat should be only contain letter, space, and dash',
@@ -157,6 +152,8 @@ export default class ObatController {
         }
         logObat.obat_id = obatLama.id
         await logObat.save()
+
+        response.redirect().back()
 
 
     }

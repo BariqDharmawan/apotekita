@@ -21,8 +21,15 @@ if (formTambahTransaksi) {
 
 const formEditObat = document.querySelector('#form-update-obat')
 if (formEditObat) {
+
+    formEditObat.querySelector('#jumlah-persediaan').parentElement.hidden = true
+    formEditObat.querySelector('#jumlah-persediaan').required = false
+
     var modalEditObat = document.getElementById('modalEditObat')
     modalEditObat.addEventListener('show.bs.modal', function (event) {
+
+        console.log()
+
         // Button that triggered the modal
         var button = event.relatedTarget
         // Extract info from data-bs-* attributes
@@ -43,7 +50,6 @@ if (formEditObat) {
         var inputProd = modalEditObat.querySelector('#tgl-prod')
         var inputExp = modalEditObat.querySelector('#tgl-exp')
         var inputHarga = modalEditObat.querySelector('#harga')
-        var inputJumlah = modalEditObat.querySelector('#jumlah-persediaan')
 
         modalTitle.innerHTML = `Edit obat <b>${nama}</b>`
         inputKode.value = kode
@@ -52,7 +58,6 @@ if (formEditObat) {
         inputProd.value = tglProd
         inputExp.value = tglExp
         inputHarga.value = harga
-        inputJumlah.value = jumlah
 
         formEditObat.action = formUrl
 
