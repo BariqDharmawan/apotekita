@@ -2,6 +2,7 @@
 
 export default class HomeController {
     public async index({ view }) {
-        return view.render('homepage')
+        const pageName = 'selamat datang di'
+        return view.render('homepage', { pageName })
     }
 }

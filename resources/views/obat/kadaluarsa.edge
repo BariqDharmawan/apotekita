@@ -26,9 +26,9 @@ aria-labelledby="obatKadaluarsaLabel" aria-hidden="true">
             <tbody>
                 @each(obat in obatKadaluarsa)
                 <tr>
-                    <td>{{ obat.kd_obat }}</td>
-                    <td>{{ obat.nm_obat }}</td>
-                    <td>{{ obat.bentuk_obat }}</td>
+                    <td>{{ obat.kode }}</td>
+                    <td>{{ obat.nama }}</td>
+                    <td>{{ obat.bentuk }}</td>
                     <td>
                         {{ 
                             new Date(obat.tgl_prod).toLocaleDateString('id-ID', {

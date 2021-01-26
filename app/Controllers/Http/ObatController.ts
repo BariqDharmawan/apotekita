@@ -85,11 +85,12 @@ export default class ObatController {
 
     public async show({ view, request, params }: HttpContextContract) {
         const query = request.input('obat')
+        const pageName = `Hasil cari dari: ${query}`
         const cariObat = await Obat.query().preload('persediaan')
-            .where('kd_obat', 'LIKE', '%' + query + '%')
-            .orWhere('nm_obat', 'LIKE', '%' + query + '%')
+            .where('kode', 'LIKE', '%' + query + '%')
+            .orWhere('nama', 'LIKE', '%' + query + '%')
 
-        return view.render('obat/cari', { cariObat, query })
+        return view.render('obat/cari', { pageName, cariObat, query })
     }
 
     public async update({ request, params, response }: HttpContextContract) {

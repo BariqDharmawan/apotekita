@@ -1,36 +1,25 @@
 @layout('layouts/master')
 @section('title-page')
-  title of homepage
+    homepage
 @endsection
 @section('content')
-    <div class="row align-items-center mb-5">
+    <div class="row align-items-center">
         <div class="col-5">
-            <h1 class="mb-0">Selamat Datang di</h1>
-        </div>
-        <div class="col">
             <img src="/img/logo.png" alt="Logo apotiking" height="60">
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col row flex-column mx-0">
-            <h5 class="text-secondary">
-                APOTIKING adalah apotek yang dibuat oleh
-                Papa Barik dkk. Apotek ini dibuat untuk
-                memenuhi tugas akhir praktikum database
-                lanjut.
-            </p>
-            <form action="{{ route('obat.show') }}" method="get" class="mt-auto">
-                <div class="row align-items-center">
-                    <div class="col-10">
-                        <input type="search" class="form-control" id="cari-obat" 
-                        name="obat" placeholder="Cari berdasarkan nama atau kode obat...">
-                    </div>
-                    <button type="submit" class="btn btn-primary col-auto">cari</button>
+    <div class="row flex-column justify-content-center align-items-start mt-5">
+        <div class="col">
+            <img src="/img/home-doctor.jpeg" height="300">
+        </div>
+        <form action="{{ route('obat.show') }}" method="get" class="mt-auto">
+            <div class="row align-items-center">
+                <div class="col-10">
+                    <input type="search" class="form-control" id="cari-obat" 
+                    name="obat" placeholder="Cari berdasarkan nama atau kode obat...">
                 </div>
-            </form>
-        </div>
-        <div class="col text-center">
-            <img src="/img/home-doctor.jpeg" alt="" height="300">
-        </div>
+                <button type="submit" class="btn btn-primary col-auto">cari</button>
+            </div>
+        </form>
     </div>
 @endsection
