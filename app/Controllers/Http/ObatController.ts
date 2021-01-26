@@ -160,7 +160,7 @@ export default class ObatController {
         await logObat.save()
         await obat.save()
 
-        response.redirect().back()
+        response.redirect().toRoute('obat.index')
 
 
     }
