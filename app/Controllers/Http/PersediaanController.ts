@@ -37,26 +37,21 @@ export default class PersediaanController {
         const obat = await Obat.find(obatId)
         await obat?.preload('persediaan')
 
-        const jumlahSaatIni = Number(obat?.persediaan.jumlah_lama)
+        const jumlahSaatIni = Number(obat?.persediaan.jumlah)
         const tambahJumlah = Number(request.input('tambah_jumlah'))
 
         await Persediaan.updateOrCreate(
             { obat_id: obatId },
             {
-                jumlah_lama: jumlahSaatIni,
+                jumlah: jumlahSaatIni + tambahJumlah,
             }
         )
 
         const logObat = new LogObat()
         logObat.obat_id = obatId
+        logObat.persediaan_lama = jumlahSaatIni
         await logObat.save()
 
         response.redirect().back()
-    }
-
-    public async edit({ }: HttpContextContract) {
-    }
-
-    public async update({ }: HttpContextContract) {
     }
 }

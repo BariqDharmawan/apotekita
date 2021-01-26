@@ -15,14 +15,9 @@
         <tbody>
             @each(persediaan in persediaanObat)
                 <tr>
-                    <td>{{ persediaan.obat.kd_obat }}</td>
+                    <td>{{ persediaan.obat.kode }}</td>
                     <td>
-                        @if(persediaan.jumlah_baru === null)
-                            {{ persediaan.jumlah_lama }}
-                        @else
-                            {{ persediaan.jumlah_baru }}
-                        @endif
-                        pcs
+                        {{ persediaan.jumlah + 'pcs' }}
                     </td>
                     <td>
                         @if(persediaan.obat.tgl_exp < new Date())

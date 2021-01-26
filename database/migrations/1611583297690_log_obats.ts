@@ -15,6 +15,7 @@ export default class LogObats extends BaseSchema {
             table.enum('bentuk_obat_baru', ['salep', 'syrup', 'kaplet', 'tablet']).nullable()
             table.integer('harga_lama').nullable()
             table.bigInteger('harga_baru').nullable()
+            table.integer('persediaan_lama').nullable()
             table.timestamps()
         })
     }

@@ -23,7 +23,7 @@ aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                             <select name="obat_id" class="form-select" required>
                                 @each(obat in namaSemuaObat)
                                     <option value="{{ obat.id }}">
-                                        {{ obat.kd_obat  }}
+                                        {{ obat.kode  }}
                                     </option>
                                 @endeach
                             </select>

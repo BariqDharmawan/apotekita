@@ -17,7 +17,7 @@
             @each(penjualan in daftarPenjualan)
             <tr>
                 <td>{{ penjualan.kode }}</td>
-                <td>{{ penjualan.obat.kd_obat }}</td>
+                <td>{{ penjualan.obat.kode }}</td>
                 <td>
                     {{
                         new Date(penjualan.waktu_transaksi).toLocaleDateString('id-ID', {
@@ -39,12 +39,9 @@
             @endeach
         </tbody>
     </table>
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahTransaksi">
-        Tambah Transaksi
-    </button>
     
-    @include('transaksi/tambah')
+    @include('penjualan/tambah')
+
     <div class="btn-group dropend">
         <button type="button" class="btn btn-secondary dropdown-toggle" 
         data-bs-toggle="dropdown" aria-expanded="false">

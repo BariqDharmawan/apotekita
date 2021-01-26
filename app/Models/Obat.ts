@@ -14,13 +14,13 @@ export default class Obat extends BaseModel {
     public id: number
 
     @column()
-    public kd_obat: string
+    public kode: string
 
     @column()
-    public nm_obat: string
+    public nama: string
 
     @column()
-    public bentuk_obat: string
+    public bentuk: string
 
     @column()
     public tgl_prod: Date

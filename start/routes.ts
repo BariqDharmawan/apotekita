@@ -1,7 +1,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'HomeController.index').as('homepage')
-Route.resource('persediaan-obat', 'PersediaanController')
+Route.resource('persediaan-obat', 'PersediaanController').only(['index', 'store'])
 // Route.resource('obat', 'ObatController').except(['show', 'update', 'edit'])
 Route.group(() => {
     Route.get('/', 'ObatController.index').as('obat.index')

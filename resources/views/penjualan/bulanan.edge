@@ -3,6 +3,7 @@
     Transaksi
 @endsection
 @section('content')
+    <h1 class="h3 mb-5">Report penjualan bulan {{ namaBulan }}</h1>
     <table class="table table-borderless">
     <thead>
         <tr>
@@ -16,7 +17,7 @@
         @each(penjualan in filterPenjualan)
         <tr>
             <td>{{ penjualan.kode }}</td>
-            <td>{{ penjualan.obat.kd_obat }}</td>
+            <td>{{ penjualan.obat.kode }}</td>
             <td>
                 {{ 
                     new Date(penjualan.waktu_transaksi).toLocaleDateString('id-ID', {

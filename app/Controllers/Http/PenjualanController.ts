@@ -14,14 +14,14 @@ export default class PenjualanController {
             listObat = await Obat.query().preload('persediaan')
 
         // response.json(listObat)
-        return view.render('transaksi/index', {
+        return view.render('penjualan/index', {
             daftarPenjualan, listMonth, listMontName, listObat
         })
     }
 
     public async store({ request, response }: HttpContextContract) {
         const obat = await Obat.findByOrFail(
-            'kd_obat', request.input('kd_obat')
+            'kode', request.input('kd_obat')
         )
         await obat.preload('persediaan')
 
@@ -32,13 +32,14 @@ export default class PenjualanController {
                     rules.required()
                 ]),
                 kd_obat: schema.string({}, [
-                    rules.exists({ table: 'obat', column: 'kd_obat' })
+                    rules.exists({ table: 'obat', column: 'kode' })
                 ])
             }),
             reporter: validator.reporters.jsonapi
         })
 
         const jumlah_beli = Number(request.input('jumlah_beli'))
+
         const tambahPenjualan = new Penjualan()
         tambahPenjualan.kode = 'kd-penjualan-' + DateTime.local().toFormat('dd-LL-yyyy-HH-mm-ss')
         tambahPenjualan.waktu_transaksi = request.input('tgl_transaksi')
@@ -52,7 +53,7 @@ export default class PenjualanController {
         await tambahPenjualan.save()
 
         const updatePersediaan = await Persediaan.findByOrFail('obat_id', obat.id)
-        updatePersediaan.jumlah_baru = updatePersediaan.jumlah_baru - jumlah_beli
+        updatePersediaan.jumlah = Number(updatePersediaan.jumlah) - jumlah_beli
         await updatePersediaan.save()
 
         response.redirect().back()
@@ -69,7 +70,7 @@ export default class PenjualanController {
             'bulan', params.bulan.replace(/^0/, '')
         ).preload('obat')
 
-        return view.render('transaksi/bulanan', { filterPenjualan, namaBulan })
+        return view.render('penjualan/bulanan', { filterPenjualan, namaBulan })
     }
 
 }

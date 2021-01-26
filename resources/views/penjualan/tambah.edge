@@ -1,3 +1,6 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahTransaksi">
+    Tambah Transaksi
+</button>
 <div class="modal fade" id="modalTambahTransaksi" tabindex="-1" 
 aria-labelledby="tambahObatLabel" aria-hidden="true" 
 data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
@@ -17,21 +20,23 @@ data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
                     <select class="form-select" id="kode-obat" name="kd_obat" required>
                         <option disabled hidden selected>Pilih kode obat</option>
                         @each(obat in listObat)
-                            <option value="{{ obat.kd_obat }}" 
+                            <option value="{{ obat.kode }}" 
                             data-persediaan="{{ obat.persediaan.jumlah }}">
-                                {{ obat.kd_obat  }}
+                                {{ obat.kode  }}
                             </option>
                         @endeach
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="tgl-transaksi" class="form-label">Tanggal Transaksi</label>
-                    <input type="date" name="tgl_transaksi"
+                    <input type="date" name="tgl_transaksi" 
+                    max="{{ new Date().toISOString().slice(0, 10) }}"
                     class="form-control" id="tgl-transaksi" required>
                 </div>
                 <div class="mb-3">
                     <label for="jumlah-beli" class="form-label">Jumlah Beli</label>
-                    <input type="number" name="jumlah_beli" min="1"
+                    <input type="number" name="jumlah_beli" min="1" 
+                    placeholder="Masukan jumlah beli"
                     class="form-control" id="jumlah-beli" required>
                 </div>
             </form>

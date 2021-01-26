@@ -13,25 +13,16 @@ export default class LogObat extends BaseModel {
     public kd_obat_lama: string
 
     @column()
-    public kd_obat_baru: string
-
-    @column()
     public nm_obat_lama: string
-
-    @column()
-    public nm_obat_baru: string
 
     @column()
     public bentuk_obat_lama: string
 
     @column()
-    public bentuk_obat_baru: string
-
-    @column()
     public harga_lama: number
 
     @column()
-    public harga_baru: number
+    public persediaan_lama: number
 
     @column()
     public obat_id: number

@@ -1,7 +1,7 @@
 <tr>
-    <td>{{ obat.kd_obat }}</td>
-    <td>{{ obat.nm_obat }}</td>
-    <td>{{ obat.bentuk_obat }}</td>
+    <td>{{ obat.kode }}</td>
+    <td>{{ obat.nama }}</td>
+    <td>{{ obat.bentuk }}</td>
     <td>
         {{
             new Date(obat.tgl_prod).toLocaleDateString('id-ID', {
@@ -37,9 +37,9 @@
     <td>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
         data-bs-target="#modalEditObat" 
-        data-nama="{{ obat.nm_obat }}" 
-        data-kode="{{ obat.kd_obat }}"
-        data-bentuk="{{ obat.bentuk_obat }}"
+        data-nama="{{ obat.nama }}" 
+        data-kode="{{ obat.kode }}"
+        data-bentuk="{{ obat.bentuk }}"
         data-prod="{{ new Date(obat.tgl_prod).toISOString().slice(0, 10) }}"
         data-exp="{{ new Date(obat.tgl_exp).toISOString().slice(0, 10) }}"
         data-harga="{{ obat.harga }}"
@@ -47,7 +47,7 @@
         data-url="{{ route('obat.update', {params: {id: obat.id}}) }}">
             edit detail
         </button>
-        <a href="{{ route('obat.destroy', {params: {kode: obat.kd_obat}}) }}" 
+        <a href="{{ route('obat.destroy', {params: {kode: obat.kode}}) }}" 
         class="btn btn-danger">
             hapus
         </a>

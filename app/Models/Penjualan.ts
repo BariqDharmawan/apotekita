@@ -7,10 +7,6 @@ export default class Penjualan extends BaseModel {
     public static table = 'penjualan'
     public static primaryKey = 'id'
 
-    // public static hidden() {
-    //     return ['tahun', 'bulan', 'hari']
-    // }
-
     @column()
     public id: number
 
