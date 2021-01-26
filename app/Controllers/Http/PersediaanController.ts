@@ -6,14 +6,11 @@ import Persediaan from 'App/Models/Persediaan'
 
 export default class PersediaanController {
     public async index({ view, response }: HttpContextContract) {
+        const pageName = 'persediaan obat'
         const namaSemuaObat = await Obat.query().where('tgl_exp', '>', new Date().toISOString())
         const persediaanObat = await Persediaan.query().preload('obat')
 
-        // await persediaanObat?.preload('obat')
-
-        // response.json(persediaanObat)
-
-        return view.render('persediaan/index', { persediaanObat, namaSemuaObat })
+        return view.render('persediaan/index', { pageName, persediaanObat, namaSemuaObat })
     }
 
     public async store({ request, response, session }: HttpContextContract) {

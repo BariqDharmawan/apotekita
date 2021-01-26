@@ -8,6 +8,7 @@ export default class ObatController {
 
     public async index({ response, view }: HttpContextContract) {
 
+        const pageName = 'manage obat'
         const obatTidakKadaluarsa = await Obat.query()
             .where('tgl_exp', '>', new Date().toISOString()).preload('persediaan')
         const obatKadaluarsa = await Obat.query()
@@ -16,7 +17,9 @@ export default class ObatController {
             query.preload('persediaan')
         })
 
-        return view.render('obat/index', { obatKadaluarsa, obatTidakKadaluarsa, logObat })
+        return view.render('obat/index', {
+            pageName, obatKadaluarsa, obatTidakKadaluarsa, logObat
+        })
     }
 
     public async store({ request, response }: HttpContextContract) {

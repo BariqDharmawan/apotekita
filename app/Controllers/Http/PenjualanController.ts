@@ -8,6 +8,7 @@ import { DateTime, Info } from 'luxon'
 export default class PenjualanController {
 
     public async index({ view, response }: HttpContextContract) {
+        const pageName = 'report penjualan'
         const daftarPenjualan = await Penjualan.query().preload('obat'),
             listMonth = Info.months('2-digit'),
             listMontName = Info.months('long'),
@@ -15,7 +16,7 @@ export default class PenjualanController {
 
         // response.json(listObat)
         return view.render('penjualan/index', {
-            daftarPenjualan, listMonth, listMontName, listObat
+            pageName, daftarPenjualan, listMonth, listMontName, listObat
         })
     }
 
@@ -70,7 +71,9 @@ export default class PenjualanController {
             'bulan', params.bulan.replace(/^0/, '')
         ).preload('obat')
 
-        return view.render('penjualan/bulanan', { filterPenjualan, namaBulan })
+        const pageName = `report penjualan bulan ${namaBulan}`
+
+        return view.render('penjualan/bulanan', { pageName, filterPenjualan, namaBulan })
     }
 
 }
