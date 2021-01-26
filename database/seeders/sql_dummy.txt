@@ -1,0 +1,119 @@
+create table obat(
+kd_obat varchar(11) not null primary key,
+nm_obat varchar(25) not null,
+bentuk_obat varchar(10) not null,
+tgl_prod date not null,
+tgl_exp date not null,
+harga int(10) not null);
+
+insert into obat values
+('SLMNZ1520', 'MICONAZOLE', 'SALEP', '2015-09-15', '2020-12-09', 18000),
+('SRSCF1723', 'SUCRALFATE', 'SYRUP', '2017-03-13', '2023-04-20', 62500),
+('SRZNP1723', 'ZINCPRO', 'SYRUP', '2017-02-02', '2023-01-31', 15000),
+('KPRNS1723', 'RHINNOS', 'KAPLET', '2017-02-02', '2023-01-31', 45000),
+('TBALD1723', 'AMLODIPINE', 'TABLET', '2017-02-02', '2023-01-31', 51000);
+
+create table persediaan(
+kd_obat_persediaan varchar(11) not null primary key,
+jumlah_persediaan int(10));
+
+insert into persediaan values
+('SLMNZ1520', 100),
+('SRSCF1723', 100),
+('SRZNP1723', 100),
+('KPRNS1723', 100),
+('TBALD1723', 100);
+
+create table penjualan(
+kd_obat_penjualan varchar(11) not null,
+tgl_trans_penjualan date not null,
+jumlah_penjualan int (10) not null);
+
+DELIMITER $$
+CREATE TRIGGER update_persediaan AFTER INSERT ON penjualan FOR EACH ROW
+BEGIN
+UPDATE persediaan
+SET jumlah_persediaan = jumlah_persediaan - new.jumlah_penjualan
+WHERE
+	persediaan.kd_obat_persediaan = new.kd_obat_penjualan; 
+END$$
+DELIMITER ;
+
+insert into penjualan values
+('SLMNZ1520', '2019-01-13', 23),
+('SRSCF1723', '2019-01-15', 14),
+('SRZNP1723', '2019-01-15', 6),
+('KPRNS1723', '2019-01-15', 17),
+('TBALD1723', '2019-01-15', 43),
+('SRZNP1723', '2019-02-11', 20),
+('SLMNZ1520', '2019-02-13', 12),
+('SRSCF1723', '2019-03-15', 9),
+('KPRNS1723', '2019-03-15', 16),
+('TBALD1723', '2019-03-15', 21);
+
+// INI YG DITAMBAHIN
+
+create view transaksi as
+select kd_obat as 'kode obat', nm_obat as 'nama obat', 
+sum(jumlah_penjualan) as 'Jumlah Terjual',
+sum( if( month(tgl_trans_penjualan) = 1, (jumlah_penjualan * harga), 0)) as Januari,
+sum( if( month(tgl_trans_penjualan) = 1, jumlah_penjualan, 0)) as Terjual1,
+sum( if( month(tgl_trans_penjualan) = 2, (jumlah_penjualan * harga), 0)) as Februari,
+sum( if( month(tgl_trans_penjualan) = 2, jumlah_penjualan, 0)) as Terjual2,
+sum( if( month(tgl_trans_penjualan) = 3, (jumlah_penjualan * harga), 0)) as Maret,
+sum( if( month(tgl_trans_penjualan) = 3, jumlah_penjualan, 0)) as Terjual3,
+jumlah_persediaan as 'Sisa Stok'
+from obat
+join penjualan on kd_obat = kd_obat_penjualan
+join persediaan on kd_obat = kd_obat_persediaan
+group by nm_obat;
+
+create table log_harga(
+log_kd_obat varchar(15) not null,
+log_harga int(10) not null);
+
+DELIMITER $$
+CREATE TRIGGER log_perubahan BEFORE UPDATE ON obat FOR EACH ROW
+BEGIN
+insert into log_harga
+SET log_kd_obat = new.kd_obat,
+log_harga = new.harga;
+END$$
+DELIMITER ;
+
+update obat set harga = 21000 where kd_obat = 'SLMNZ1520';
+
+update obat set harga = 65000 where kd_obat = 'SRSCF1723';
+
+update obat set harga = 20000 where kd_obat = 'SRZNP1723';
+
+update obat set harga = 47500 where kd_obat = 'KPRNS1723';
+
+update obat set harga = 55000 where kd_obat = 'TBALD1723';
+
+create table kadaluarsa 
+(kode_obat varchar(15),
+nama_obat varchar(15),
+bentuk_obat varchar(15),
+tgl_produksi DATE,
+tgl_kadaluarsa DATE,
+harga_satuan INT);
+
+update obat 
+SET tgl_kadaluarsa = '2020-11-19'
+WHERE kode_obat = 'SLMNZ1520';
+
+
+update obat 
+SET tgl_kadaluarsa = '2019-12-25'
+WHERE kode_obat = 'TBALD1723';
+
+DELIMITER $$
+create definer= `root`@`localhost`EVENT`cek_kadaluarsa`
+ON SCHEDULE EVERY 1 MINUTE STARTS '2020-12-25 12:30:00' ON COMPLETION
+PRESERVE ENABLE DO
+insert into kadaluarsa(kode_obat, nama_obat, bentuk_obat, tgl_produksi, tgl_kadaluarsa, harga_satuan)
+(select kd_obat, nm_obat, bentuk_obat, tgl_prod, tgl_wxp, harga 
+from obat WHERE tgl_exp <= CURDATE() AND NOT EXISTS
+(select*from kadaluarsa where kode_obat = obat.kd_obat)
+)$$

@@ -15,47 +15,18 @@ aria-labelledby="obatKadaluarsaLabel" aria-hidden="true">
         <table class="table table-borderless">
             <thead>
               <tr>
-                <th scope="col">Kode</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Bentuk</th>
-                <th scope="col">Tgl Produksi</th>
-                <th scope="col">Tgl Kadaluarsa</th>
-                <th scope="col">Harga</th>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Bentuk</th>
+                <th>Tgl Produksi</th>
+                <th>Tgl Kadaluarsa</th>
+                <th>Harga</th>
+                <th>action</th>
               </tr>
             </thead>
             <tbody>
                 @each(obat in obatKadaluarsa)
-                <tr>
-                    <td>{{ obat.kode }}</td>
-                    <td>{{ obat.nama }}</td>
-                    <td>{{ obat.bentuk }}</td>
-                    <td>
-                        {{ 
-                            new Date(obat.tgl_prod).toLocaleDateString('id-ID', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            })
-                        }}
-                    </td>
-                    <td>
-                        {{
-                            new Date(obat.tgl_exp).toLocaleDateString('id-ID', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            })
-                        }}
-                    </td>
-                    <td>
-                        {{
-                            new Intl.NumberFormat('id-ID', {
-                                style: 'currency',
-                                currency: 'IDR'
-                            }).format(obat.harga)
-                        }}
-                    </td>
-                </tr>
+                    @include('obat/list')
                 @else
                 <tr>
                     <td colspan="6" class="text-center">Tidak ada obat yg kadaluarsa</td>

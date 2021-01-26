@@ -13,6 +13,8 @@ export default class PenjualanController {
             listMonth = Info.months('2-digit'),
             listMontName = Info.months('long'),
             listObat = await Obat.query().preload('persediaan')
+                .where('tgl_exp', '>', new Date().toISOString())
+                .where('status', 'masih-ada')
 
         // response.json(listObat)
         return view.render('penjualan/index', {

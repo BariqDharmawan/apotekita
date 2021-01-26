@@ -10,15 +10,24 @@
                 <th>Kode obat</th>
                 <th>Tgl Transaksi</th>
                 <th>Jumlah</th>
-                <th>Action</th>
+                <th>Status obat</th>
             </tr>
         </thead>
         <tbody>
             @each(penjualan in daftarPenjualan)
             <tr>
-                <td>{{ penjualan.kode }}</td>
-                <td>{{ penjualan.obat.kode }}</td>
                 <td>
+                    @if(penjualan.kode !== null)
+                    {{ penjualan.kode }}
+                    @else
+                    -
+                    @endif
+                </td>
+                <td>
+                    {{ penjualan.obat.kode }}
+                </td>
+                <td>
+                    @if(penjualan.waktu_transaksi !== null)
                     {{
                         new Date(penjualan.waktu_transaksi).toLocaleDateString('id-ID', {
                             year: 'numeric',
@@ -26,10 +35,23 @@
                             day: 'numeric'
                         })
                     }}
+                    @else
+                    -
+                    @endif
                 </td>
-                <td>{{ penjualan.jumlah_beli + ' pcs' }}</td>
                 <td>
-                    
+                    @if(penjualan.jumlah_beli !== null)
+                    {{ penjualan.jumlah_beli + ' pcs' }}
+                    @else
+                    -
+                    @endif
+                </td>
+                <td>
+                    @if(penjualan.obat.status === 'masih-ada')
+                        <span class="badge bg-info">Masih ada</span>
+                    @else
+                        <span class="badge bg-danger">Dibuang</span>
+                    @endif
                 </td>
             </tr>
             @else

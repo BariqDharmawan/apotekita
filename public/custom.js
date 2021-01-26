@@ -22,17 +22,17 @@ if (formTambahTransaksi) {
 const formEditObat = document.querySelector('#form-update-obat')
 if (formEditObat) {
 
-    formEditObat.querySelector('#jumlah-persediaan').parentElement.hidden = true
-    formEditObat.querySelector('#jumlah-persediaan').required = false
+    formEditObat.querySelectorAll('#tgl-prod, #tgl-exp, #jumlah-persediaan').forEach(input => {
+        input.parentElement.hidden = true
+        if (input.required == true) {
+            input.required = false
+        }
+    })
 
     var modalEditObat = document.getElementById('modalEditObat')
     modalEditObat.addEventListener('show.bs.modal', function (event) {
 
-        console.log()
-
-        // Button that triggered the modal
         var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
         var nama = button.getAttribute('data-nama')
         var kode = button.getAttribute('data-kode')
         var bentuk = button.getAttribute('data-bentuk')
@@ -62,4 +62,11 @@ if (formEditObat) {
         formEditObat.action = formUrl
 
     })   
+}
+
+const listObatKadaluarsa = document.querySelector('#obatKadaluarsa')
+if (listObatKadaluarsa) {
+    listObatKadaluarsa.querySelectorAll('.btn-edit-obat').forEach(btnEditObat => {
+        btnEditObat.hidden = true
+    })
 }

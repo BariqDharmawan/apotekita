@@ -31,6 +31,9 @@ export default class Obat extends BaseModel {
     @column()
     public harga: number
 
+    @column()
+    public status: string
+
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
 

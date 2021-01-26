@@ -2,7 +2,9 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator'
 import LogObat from 'App/Models/LogObat'
 import Obat from 'App/Models/Obat'
+import Penjualan from 'App/Models/Penjualan'
 import Persediaan from 'App/Models/Persediaan'
+import { DateTime } from 'luxon'
 
 export default class ObatController {
 
@@ -10,9 +12,15 @@ export default class ObatController {
 
         const pageName = 'manage obat'
         const obatTidakKadaluarsa = await Obat.query()
-            .where('tgl_exp', '>', new Date().toISOString()).preload('persediaan')
+            .where('tgl_exp', '>', new Date().toISOString())
+            .where('status', 'masih-ada')
+            .preload('persediaan')
+
         const obatKadaluarsa = await Obat.query()
-            .where('tgl_exp', '<', new Date().toISOString()).preload('persediaan')
+            .where('tgl_exp', '<', new Date().toISOString())
+            .where('status', 'masih-ada')
+            .preload('persediaan')
+
         const logObat = await LogObat.query().preload('obat', (query) => {
             query.preload('persediaan')
         })
@@ -61,7 +69,7 @@ export default class ObatController {
         const jumlahPersediaan = request.input('jumlah_persediaan')
 
         const tambahObat = new Obat()
-        tambahObat.kode = request.input('kd_obat')
+        tambahObat.kode = String(request.input('kd_obat')).replace(/\s+/g, '')
         tambahObat.nama = request.input('nm_obat')
         tambahObat.bentuk = request.input('bentuk_obat')
         tambahObat.tgl_prod = request.input('tgl_prod')
@@ -88,6 +96,7 @@ export default class ObatController {
         const pageName = `Hasil cari dari: ${query}`
         const cariObat = await Obat.query().preload('persediaan')
             .where('kode', 'LIKE', '%' + query + '%')
+            .where('status', 'masih-ada')
             .orWhere('nama', 'LIKE', '%' + query + '%')
 
         return view.render('obat/cari', { pageName, cariObat, query })
@@ -129,7 +138,7 @@ export default class ObatController {
             bentukLama = obat.bentuk,
             hargaLama = obat.harga
 
-        const kdObatBaru = request.input('kd_obat'),
+        const kdObatBaru = String(request.input('kd_obat')).replace(/\s+/g, ''),
             nmObatBaru = request.input('nm_obat'),
             bentukBaru = request.input('bentuk_obat'),
             hargaBaru = Number(request.input('harga'))
@@ -163,10 +172,18 @@ export default class ObatController {
 
     public async destroy({ response, params }: HttpContextContract) {
         const obat = await Obat.findByOrFail('kode', params.kode)
+        obat.status = 'dibuang'
+        await obat.save()
 
-        await LogObat.query().where('obat_id', obat.id).delete()
-        await Persediaan.query().where('obat_id', obat.id).delete()
-        await obat.delete()
+        const perbaruiLogObat = new LogObat()
+        perbaruiLogObat.obat_id = obat.id
+        await perbaruiLogObat.save()
+        // await LogObat.query().where('obat_id', obat.id).delete()
+        const updatedAt = DateTime.local().toFormat('yyyy-LL-dd HH:mm:ss')
+        await Persediaan.query().where('obat_id', obat.id).update({
+            jumlah: 0,
+            updated_at: updatedAt
+        })
 
         response.redirect().back()
     }

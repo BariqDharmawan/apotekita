@@ -9,6 +9,7 @@ export default class Obats extends BaseSchema {
             table.string('kode').notNullable()
             table.string('nama').notNullable()
             table.enum('bentuk', ['salep', 'syrup', 'kaplet', 'tablet']).notNullable()
+            table.enum('status', ['dibuang', 'masih-ada']).defaultTo('masih-ada')
             table.date('tgl_prod').nullable()
             table.date('tgl_exp').nullable()
             table.bigInteger('harga').notNullable()
