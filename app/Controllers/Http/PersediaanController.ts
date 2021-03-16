@@ -39,7 +39,7 @@ export default class PersediaanController {
         const jumlahSaatIni = Number(obat?.persediaan.jumlah)
         const tambahJumlah = Number(request.input('tambah_jumlah'))
 
-        await Persediaan.updateOrCreate(
+        const tambahPersediaan = await Persediaan.updateOrCreate(
             { obat_id: obatId },
             {
                 jumlah: jumlahSaatIni + tambahJumlah,
