@@ -19,11 +19,12 @@
 </div>
 <div class="mb-3">
     <label for="tgl-prod" class="control-label">Tanggal Produksi</label>
-    <input class="form-control" id="tgl-prod" name="tgl_prod" type="date"/>
+    <input class="form-control" id="tgl-prod" name="tgl_prod" type="date" max="{{ new Date().toISOString().slice(0, 10) }}"/>
 </div>
 <div class="mb-3">
     <label for="tgl-exp" class="control-label">Tanggal Kadaluarsa</label>
-    <input class="form-control" id="tgl-exp" name="tgl_exp" type="date"/>
+    <input class="form-control" id="tgl-exp" name="tgl_exp" type="date" 
+    min="{{ new Date().toISOString().slice(0, 10) }}" />
 </div>
 <div class="mb-3">
     <label for="basic-url" class="form-label">Harga Obat</label>
@@ -36,5 +37,5 @@
 <div class="mb-3">
     <label for="jumlah-persediaan" class="form-label">Jumlah persediaan</label>
     <input type="number" id="jumlah-persediaan" name="jumlah_persediaan" 
-    class="form-control" required>
+    class="form-control" min="1" required>
 </div>
